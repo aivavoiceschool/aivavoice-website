@@ -1,4 +1,5 @@
 import type { APIRoute } from 'astro';
+import { env } from 'cloudflare:workers';
 
 export const prerender = false;
 
@@ -10,7 +11,7 @@ export const POST: APIRoute = async ({ request }) => {
 
   try {
     const body = await request.json();
-    console.log('[CONTACT] Received request:', JSON.stringify({ name: body.name, phone: body.phone, lang: body.lang }));
+    console.log('[CONTACT] Received:', JSON.stringify({ name: body.name, phone: body.phone, lang: body.lang }));
 
     if (!body.name?.trim()) {
       return new Response(JSON.stringify({ error: "Ім'я обов'язкове" }), { status: 400, headers });
@@ -19,19 +20,19 @@ export const POST: APIRoute = async ({ request }) => {
       return new Response(JSON.stringify({ error: "Телефон обов'язковий" }), { status: 400, headers });
     }
 
-    // Get env — try all methods
-    const botToken = import.meta.env.TELEGRAM_BOT_TOKEN || (globalThis as any).process?.env?.TELEGRAM_BOT_TOKEN;
-    const chatId = import.meta.env.TELEGRAM_CHAT_ID || (globalThis as any).process?.env?.TELEGRAM_CHAT_ID;
-    const turnstileSecret = import.meta.env.TURNSTILE_SECRET_KEY || (globalThis as any).process?.env?.TURNSTILE_SECRET_KEY;
+    // Get env from Cloudflare (static import)
+    const cfEnv = env as Record<string, string>;
+    const botToken = cfEnv.TELEGRAM_BOT_TOKEN;
+    const chatId = cfEnv.TELEGRAM_CHAT_ID;
+    const turnstileSecret = cfEnv.TURNSTILE_SECRET_KEY;
 
+    console.log('[CONTACT] env type:', typeof env);
+    console.log('[CONTACT] env keys:', Object.keys(cfEnv));
     console.log('[CONTACT] botToken exists:', !!botToken, '| chatId exists:', !!chatId);
-    console.log('[CONTACT] botToken preview:', botToken ? botToken.substring(0, 8) + '...' : 'EMPTY');
-    console.log('[CONTACT] chatId:', chatId || 'EMPTY');
-    console.log('[CONTACT] import.meta.env keys:', Object.keys(import.meta.env).filter(k => k.startsWith('TELEGRAM')));
 
     if (!botToken || !chatId) {
-      console.error('[CONTACT] ERROR: Telegram credentials not found!');
-      return new Response(JSON.stringify({ ok: true, debug: 'no-telegram-credentials' }), { status: 200, headers });
+      console.error('[CONTACT] ERROR: Telegram credentials not found in env!');
+      return new Response(JSON.stringify({ error: 'Server config error', debug: 'no-credentials', envKeys: Object.keys(cfEnv) }), { status: 500, headers });
     }
 
     // Validate Turnstile if configured
@@ -67,33 +68,32 @@ export const POST: APIRoute = async ({ request }) => {
       lines.push(`🌐 *Мова сайту:* ${body.lang === 'en' ? 'English' : 'Українська'}`);
     }
 
-    const tgUrl = `https://api.telegram.org/bot${botToken}/sendMessage`;
-    const tgBody = {
-      chat_id: chatId,
-      text: lines.join('\n'),
-      parse_mode: 'Markdown',
-    };
+    console.log('[CONTACT] Sending to Telegram...');
 
-    console.log('[CONTACT] Sending to Telegram...', JSON.stringify({ chat_id: chatId, textLength: tgBody.text.length }));
-
-    const tgRes = await fetch(tgUrl, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(tgBody),
-    });
+    const tgRes = await fetch(
+      `https://api.telegram.org/bot${botToken}/sendMessage`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          chat_id: chatId,
+          text: lines.join('\n'),
+          parse_mode: 'Markdown',
+        }),
+      }
+    );
 
     const tgResponseText = await tgRes.text();
-    console.log('[CONTACT] Telegram response status:', tgRes.status);
-    console.log('[CONTACT] Telegram response body:', tgResponseText);
+    console.log('[CONTACT] Telegram status:', tgRes.status, '| body:', tgResponseText);
 
     if (!tgRes.ok) {
-      return new Response(JSON.stringify({ error: 'Помилка надсилання', debug: tgResponseText }), { status: 500, headers });
+      return new Response(JSON.stringify({ error: 'Помилка надсилання' }), { status: 500, headers });
     }
 
-    console.log('[CONTACT] SUCCESS — message sent to Telegram');
+    console.log('[CONTACT] SUCCESS');
     return new Response(JSON.stringify({ ok: true }), { status: 200, headers });
   } catch (err) {
-    console.error('[CONTACT] FATAL error:', err);
+    console.error('[CONTACT] FATAL:', err);
     return new Response(JSON.stringify({ error: 'Внутрішня помилка сервера', debug: String(err) }), { status: 500, headers });
   }
 };
