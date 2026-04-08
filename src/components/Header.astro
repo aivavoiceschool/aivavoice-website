@@ -1,0 +1,165 @@
+---
+import { t, getLangFromUrl, localizedPath, languages, defaultLang } from '../i18n';
+
+const lang = getLangFromUrl(Astro.url);
+const i = t(lang);
+const currentPath = Astro.url.pathname;
+
+// Strip language prefix to get the base path
+function getBasePath(pathname: string): string {
+  const [, maybeLang, ...rest] = pathname.split('/');
+  if (maybeLang === 'en') return '/' + rest.join('/');
+  return pathname;
+}
+
+const basePath = getBasePath(currentPath);
+
+const navLinks = [
+  { href: localizedPath('/', lang), label: i.nav.home },
+  { href: localizedPath('/about/', lang), label: i.nav.about },
+  { href: localizedPath('/teachers/', lang), label: i.nav.teachers },
+  { href: localizedPath('/pricing/', lang), label: i.nav.pricing },
+  { href: localizedPath('/reviews/', lang), label: i.nav.reviews },
+  { href: localizedPath('/contact/', lang), label: i.nav.contact },
+];
+
+function isActive(href: string): boolean {
+  if (href === '/' || href === '/en/') return currentPath === '/' || currentPath === '/en/';
+  return currentPath.startsWith(href);
+}
+
+// Language switcher paths
+const langSwitchPaths: Record<string, string> = {};
+for (const code of Object.keys(languages)) {
+  langSwitchPaths[code] = localizedPath(basePath || '/', code);
+}
+---
+
+<header
+  data-header
+  class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-xl border-b border-gray-200/60 transition-shadow duration-300"
+>
+  <div class="max-w-7xl mx-auto px-5 flex items-center justify-between h-[72px]">
+    <a href={localizedPath('/', lang)} class="font-heading text-2xl font-bold tracking-wide">
+      <span class="text-forest">Aiva</span><span class="text-gold">Voice</span>
+    </a>
+
+    <nav class="hidden lg:flex items-center gap-8">
+      {navLinks.map(({ href, label }) => (
+        <a
+          href={href}
+          class:list={[
+            'text-sm font-medium tracking-wide transition-colors duration-300 relative pb-1',
+            isActive(href)
+              ? 'text-gold after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-gold after:rounded-full'
+              : 'text-gray-500 hover:text-forest',
+          ]}
+        >
+          {label}
+        </a>
+      ))}
+
+      <div class="flex items-center gap-1 ml-2 text-xs font-medium">
+        {Object.entries(languages).map(([code, label], idx) => (
+          <>
+            {idx > 0 && <span class="text-gray-300">/</span>}
+            <a
+              href={langSwitchPaths[code]}
+              class:list={[
+                'transition-colors',
+                lang === code ? 'text-gold' : 'text-gray-300 hover:text-gray-500',
+              ]}
+            >
+              {label}
+            </a>
+          </>
+        ))}
+      </div>
+
+      <a href={localizedPath('/contact/', lang)} class="btn-gold !px-6 !py-2.5 !text-xs">
+        {i.nav.cta}
+      </a>
+    </nav>
+
+    <button
+      id="burger"
+      class="lg:hidden flex flex-col justify-center gap-[5px] w-7 h-7 cursor-pointer z-[60]"
+      aria-label="Menu"
+    >
+      <span class="block w-full h-[2px] bg-forest rounded-full transition-all duration-300 origin-center" />
+      <span class="block w-full h-[2px] bg-forest rounded-full transition-all duration-300 origin-center" />
+      <span class="block w-full h-[2px] bg-forest rounded-full transition-all duration-300 origin-center" />
+    </button>
+  </div>
+
+  <div id="mobileOverlay" class="hidden fixed inset-0 bg-black/30 z-[55] lg:hidden" />
+
+  <nav
+    id="mobileNav"
+    class="fixed top-0 right-0 w-72 h-dvh bg-white z-[56] flex flex-col justify-center px-8 gap-2 translate-x-full transition-transform duration-400 ease-[cubic-bezier(0.4,0,0.2,1)] lg:hidden border-l border-gray-200"
+  >
+    {navLinks.map(({ href, label }) => (
+      <a
+        href={href}
+        class:list={[
+          'text-lg font-medium py-3 border-b border-gray-100 transition-colors',
+          isActive(href) ? 'text-gold' : 'text-gray-600 hover:text-forest',
+        ]}
+      >
+        {label}
+      </a>
+    ))}
+    <div class="flex items-center gap-2 mt-4 text-sm font-medium">
+      {Object.entries(languages).map(([code, label], idx) => (
+        <>
+          {idx > 0 && <span class="text-gray-300">/</span>}
+          <a
+            href={langSwitchPaths[code]}
+            class:list={[
+              'transition-colors',
+              lang === code ? 'text-gold' : 'text-gray-300 hover:text-gray-500',
+            ]}
+          >
+            {label}
+          </a>
+        </>
+      ))}
+    </div>
+    <a href={localizedPath('/contact/', lang)} class="btn-gold mt-4 text-center">
+      {i.nav.cta}
+    </a>
+  </nav>
+</header>
+
+<script>
+  const burger = document.getElementById('burger');
+  const mobileNav = document.getElementById('mobileNav');
+  const overlay = document.getElementById('mobileOverlay');
+
+  function toggle() {
+    const isOpen = !mobileNav?.classList.contains('translate-x-full');
+    mobileNav?.classList.toggle('translate-x-full', isOpen);
+    mobileNav?.classList.toggle('translate-x-0', !isOpen);
+    overlay?.classList.toggle('hidden', isOpen);
+    document.body.style.overflow = isOpen ? '' : 'hidden';
+
+    const spans = burger?.querySelectorAll('span');
+    if (spans) {
+      if (!isOpen) {
+        spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+        spans[1].style.opacity = '0';
+        spans[2].style.transform = 'rotate(-45deg) translate(5px, -5px)';
+      } else {
+        spans[0].style.transform = '';
+        spans[1].style.opacity = '';
+        spans[2].style.transform = '';
+      }
+    }
+  }
+
+  burger?.addEventListener('click', toggle);
+  overlay?.addEventListener('click', toggle);
+  mobileNav?.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => {
+    if (!mobileNav.classList.contains('translate-x-full')) toggle();
+  }));
+</script>

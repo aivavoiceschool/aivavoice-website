@@ -1,0 +1,652 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { t, getLangFromUrl, localizedPath } from '../../i18n';
+
+const lang = getLangFromUrl(Astro.url);
+const i = t(lang);
+const pp = i.pricingPage;
+const contactPath = localizedPath('/contact/', lang);
+
+// Price data stays the same regardless of language — only labels change
+const adultOnlineUa = [
+  { name: pp.rows.trial, duration: pp.duration30, price: '300', per: '', saving: '', popular: false },
+  { name: pp.rows.single, duration: pp.duration45, price: '550', per: '550', saving: '', popular: false },
+  { name: pp.rows.package4, duration: pp.duration45, price: '2 000', per: '500', saving: `${pp.savingLabel} 200 ${pp.currency.uah}`, popular: false },
+  { name: pp.rows.package8, duration: pp.duration45, price: '3 800', per: '475', saving: `${pp.savingLabel} 600 ${pp.currency.uah}`, popular: true },
+  { name: pp.rows.package12, duration: pp.duration45, price: '5 400', per: '450', saving: `${pp.savingLabel} 1 200 ${pp.currency.uah}`, popular: false },
+];
+
+const adultOfflineDnipro = [
+  { name: pp.rows.trial, duration: pp.duration30, price: '350', per: '', saving: '', popular: false },
+  { name: pp.rows.single, duration: pp.duration45, price: '600', per: '600', saving: '', popular: false },
+  { name: pp.rows.package4, duration: pp.duration45, price: '2 300', per: '575', saving: `${pp.savingLabel} 100 ${pp.currency.uah}`, popular: false },
+  { name: pp.rows.package8, duration: pp.duration45, price: '4 300', per: '537', saving: `${pp.savingLabel} 500 ${pp.currency.uah}`, popular: true },
+  { name: pp.rows.package12, duration: pp.duration45, price: '6 100', per: '508', saving: `${pp.savingLabel} 1 100 ${pp.currency.uah}`, popular: false },
+];
+
+const adultOnlineEu = [
+  { name: pp.rows.trial, duration: pp.duration30, price: '12', per: '', saving: '', popular: false },
+  { name: pp.rows.single, duration: pp.duration45, price: '22', per: '22', saving: '', popular: false },
+  { name: pp.rows.package4, duration: pp.duration45, price: '80', per: '20', saving: `${pp.savingLabel} 8 ${pp.currency.eur}`, popular: false },
+  { name: pp.rows.package8, duration: pp.duration45, price: '150', per: '18.75', saving: `${pp.savingLabel} 26 ${pp.currency.eur}`, popular: true },
+  { name: pp.rows.package12, duration: pp.duration45, price: '210', per: '17.50', saving: `${pp.savingLabel} 54 ${pp.currency.eur}`, popular: false },
+];
+
+const kidsOnlineUa = [
+  { name: pp.rows.trial, duration: pp.duration2030, price: '250', per: '', saving: '', popular: false },
+  { name: pp.rows.single, duration: pp.duration30, price: '490', per: '490', saving: '', popular: false },
+  { name: pp.rows.package4, duration: pp.duration30, price: '1 700', per: '425', saving: `${pp.savingLabel} 260 ${pp.currency.uah}`, popular: false },
+  { name: pp.rows.package8, duration: pp.duration30, price: '3 100', per: '387', saving: `${pp.savingLabel} 820 ${pp.currency.uah}`, popular: true },
+  { name: pp.rows.package12, duration: pp.duration30, price: '4 400', per: '366', saving: `${pp.savingLabel} 1 480 ${pp.currency.uah}`, popular: false },
+];
+
+const kidsOfflineDnipro = [
+  { name: pp.rows.trial, duration: pp.duration2030, price: '300', per: '', saving: '', popular: false },
+  { name: pp.rows.single, duration: pp.duration30, price: '540', per: '540', saving: '', popular: false },
+  { name: pp.rows.package4, duration: pp.duration30, price: '1 900', per: '475', saving: `${pp.savingLabel} 260 ${pp.currency.uah}`, popular: false },
+  { name: pp.rows.package8, duration: pp.duration30, price: '3 500', per: '437', saving: `${pp.savingLabel} 820 ${pp.currency.uah}`, popular: true },
+  { name: pp.rows.package12, duration: pp.duration30, price: '5 000', per: '416', saving: `${pp.savingLabel} 1 480 ${pp.currency.uah}`, popular: false },
+];
+
+const kidsOnlineEu = [
+  { name: pp.rows.trial, duration: pp.duration2030, price: '8', per: '', saving: '', popular: false },
+  { name: pp.rows.single, duration: pp.duration30, price: '15', per: '15', saving: '', popular: false },
+  { name: pp.rows.package4, duration: pp.duration30, price: '55', per: '13.75', saving: `${pp.savingLabel} 5 ${pp.currency.eur}`, popular: false },
+  { name: pp.rows.package8, duration: pp.duration30, price: '100', per: '12.50', saving: `${pp.savingLabel} 20 ${pp.currency.eur}`, popular: true },
+  { name: pp.rows.package12, duration: pp.duration30, price: '140', per: '11.67', saving: `${pp.savingLabel} 40 ${pp.currency.eur}`, popular: false },
+];
+---
+
+<BaseLayout title={i.meta.pricing.title} description={i.meta.pricing.description}>
+
+  <!-- PAGE HERO -->
+  <section class="pt-36 pb-10 bg-white text-center">
+    <div class="max-w-3xl mx-auto px-5">
+      <span class="section-label justify-center">{pp.hero.label}</span>
+      <h1 class="section-title text-forest-dark">{pp.hero.title}</h1>
+      <p class="section-subtitle mx-auto">{pp.hero.subtitle}</p>
+    </div>
+  </section>
+
+  <!-- ADULT PRICING -->
+  <section class="py-10 md:py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-5">
+
+      <div class="text-center mb-10 reveal">
+        <div class="inline-flex items-center gap-2 px-4 py-2 bg-gold/8 border border-gold/15 rounded-full mb-4">
+          <span class="text-xl">{pp.adultBadgeIcon}</span>
+          <span class="text-gold text-sm font-semibold">{pp.adultBadge}</span>
+        </div>
+      </div>
+
+      <!-- Three columns -->
+      <div class="grid md:grid-cols-3 gap-6">
+
+        <!-- COLUMN 1: Online UA -->
+        <div class="reveal bg-white border border-gray-200 rounded-2xl overflow-hidden">
+          <div class="bg-gradient-to-r from-gray-50 to-white px-7 py-5 border-b border-gray-200">
+            <div class="flex items-center gap-3 mb-1">
+              <svg class="w-5 h-5 text-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 15V5.25m18 0A2.25 2.25 0 0018.75 3H5.25A2.25 2.25 0 003 5.25m18 0V12a9 9 0 11-18 0V5.25"/>
+              </svg>
+              <h2 class="font-heading text-lg font-bold text-forest-dark">{pp.columns.onlineUa.title}</h2>
+            </div>
+            <p class="text-gray-500 text-xs">{pp.columns.onlineUa.sub}</p>
+          </div>
+
+          <div class="divide-y divide-gray-100">
+            {adultOnlineUa.map((row) => (
+              <div class:list={['px-7 py-5 hover:bg-gray-50 transition-colors relative', row.popular && 'bg-gold/[0.04] border-l-2 border-l-gold']}>
+                {row.popular && (
+                  <span class="absolute top-3 right-4 px-2.5 py-0.5 bg-gold text-forest-dark text-[9px] font-bold rounded-full uppercase tracking-wider">{pp.popular}</span>
+                )}
+                <div class="flex items-center justify-between gap-4 mb-2">
+                  <div>
+                    <h4 class="text-forest font-semibold text-sm">{row.name}</h4>
+                    <span class="text-gray-400 text-xs">{row.duration}</span>
+                  </div>
+                  <div class="text-right">
+                    <div class="flex items-baseline gap-1">
+                      <span class="text-xl font-extrabold text-gold">{row.price}</span>
+                      <span class="text-gray-500 text-xs">{pp.currency.uah}</span>
+                    </div>
+                  </div>
+                </div>
+                {(row.per || row.saving) && (
+                  <div class="flex items-center justify-between gap-4">
+                    {row.per && <span class="text-gray-400 text-xs">{row.per} {pp.currency.uah}/{pp.perLesson}</span>}
+                    {row.saving && (
+                      <span class="text-forest-dark text-xs font-semibold bg-gold/15 px-2.5 py-0.5 rounded-full">
+                        {row.saving}
+                      </span>
+                    )}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+
+          <div class="px-7 py-5">
+            <a href={contactPath} class="btn-gold w-full !py-3.5 text-center !text-sm">{pp.signUp}</a>
+          </div>
+        </div>
+
+        <!-- COLUMN 2: Offline Dnipro -->
+        <div class="reveal bg-white border border-gray-200 rounded-2xl overflow-hidden">
+          <div class="bg-gradient-to-r from-gold/8 to-white px-7 py-5 border-b border-gray-200">
+            <div class="flex items-center gap-3 mb-1">
+              <svg class="w-5 h-5 text-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/>
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/>
+              </svg>
+              <h2 class="font-heading text-lg font-bold text-forest-dark">{pp.columns.offlineDnipro.title}</h2>
+            </div>
+            <p class="text-gray-500 text-xs">{pp.columns.offlineDnipro.sub}</p>
+          </div>
+
+          <div class="divide-y divide-gray-100">
+            {adultOfflineDnipro.map((row) => (
+              <div class:list={['px-7 py-5 hover:bg-gray-50 transition-colors relative', row.popular && 'bg-gold/[0.04] border-l-2 border-l-gold']}>
+                {row.popular && (
+                  <span class="absolute top-3 right-4 px-2.5 py-0.5 bg-gold text-forest-dark text-[9px] font-bold rounded-full uppercase tracking-wider">{pp.popular}</span>
+                )}
+                <div class="flex items-center justify-between gap-4 mb-2">
+                  <div>
+                    <h4 class="text-forest font-semibold text-sm">{row.name}</h4>
+                    <span class="text-gray-400 text-xs">{row.duration}</span>
+                  </div>
+                  <div class="text-right">
+                    <div class="flex items-baseline gap-1">
+                      <span class="text-xl font-extrabold text-gold">{row.price}</span>
+                      <span class="text-gray-500 text-xs">{pp.currency.uah}</span>
+                    </div>
+                  </div>
+                </div>
+                {(row.per || row.saving) && (
+                  <div class="flex items-center justify-between gap-4">
+                    {row.per && <span class="text-gray-400 text-xs">{row.per} {pp.currency.uah}/{pp.perLesson}</span>}
+                    {row.saving && (
+                      <span class="text-forest-dark text-xs font-semibold bg-gold/15 px-2.5 py-0.5 rounded-full">
+                        {row.saving}
+                      </span>
+                    )}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+
+          <div class="px-7 py-5">
+            <a href={contactPath} class="btn-outline w-full !py-3.5 text-center !text-sm">{pp.signUp}</a>
+          </div>
+        </div>
+
+        <!-- COLUMN 3: Online Europe EUR -->
+        <div class="reveal bg-white border border-gold/30 rounded-2xl overflow-hidden ring-1 ring-gold/15">
+          <div class="bg-gradient-to-r from-gray-50 to-white px-7 py-5 border-b border-gray-200">
+            <div class="flex items-center gap-3 mb-1">
+              <svg class="w-5 h-5 text-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418"/>
+              </svg>
+              <h2 class="font-heading text-lg font-bold text-forest-dark">{pp.columns.onlineEu.title}</h2>
+            </div>
+            <p class="text-gray-500 text-xs">{pp.columns.onlineEu.sub}</p>
+          </div>
+
+          <div class="divide-y divide-gray-100">
+            {adultOnlineEu.map((row) => (
+              <div class:list={['px-7 py-5 hover:bg-gray-50 transition-colors relative', row.popular && 'bg-gold/[0.04] border-l-2 border-l-gold']}>
+                {row.popular && (
+                  <span class="absolute top-3 right-4 px-2.5 py-0.5 bg-gold text-forest-dark text-[9px] font-bold rounded-full uppercase tracking-wider">{pp.popular}</span>
+                )}
+                <div class="flex items-center justify-between gap-4 mb-2">
+                  <div>
+                    <h4 class="text-forest font-semibold text-sm">{row.name}</h4>
+                    <span class="text-gray-400 text-xs">{row.duration}</span>
+                  </div>
+                  <div class="text-right">
+                    <div class="flex items-baseline gap-1">
+                      <span class="text-xl font-extrabold text-gold">{row.price}</span>
+                      <span class="text-gray-500 text-xs">{pp.currency.eur}</span>
+                    </div>
+                  </div>
+                </div>
+                {(row.per || row.saving) && (
+                  <div class="flex items-center justify-between gap-4">
+                    {row.per && <span class="text-gray-400 text-xs">{row.per} {pp.currency.eur}/{pp.perLesson}</span>}
+                    {row.saving && (
+                      <span class="text-forest-dark text-xs font-semibold bg-gold/15 px-2.5 py-0.5 rounded-full">
+                        {row.saving}
+                      </span>
+                    )}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+
+          <div class="px-7 py-5">
+            <a href={contactPath} class="btn-gold w-full !py-3.5 text-center !text-sm">{pp.signUp}</a>
+          </div>
+        </div>
+      </div>
+
+      <p class="text-gray-300 text-xs text-center mt-8 max-w-lg mx-auto leading-relaxed">
+        {pp.note}
+      </p>
+    </div>
+  </section>
+
+  <!-- KIDS PRICING -->
+  <section class="py-20 md:py-28 bg-forest-dark relative overflow-hidden" id="kidsSection">
+    <div class="absolute -top-32 -right-32 w-[400px] h-[400px] bg-gold/5 rounded-full blur-[100px] pointer-events-none" />
+    <div class="absolute -bottom-24 -left-24 w-[300px] h-[300px] bg-gold/3 rounded-full blur-[80px] pointer-events-none" />
+
+    <div class="relative max-w-7xl mx-auto px-5">
+      <div class="text-center mb-14 reveal">
+        <span class="inline-flex items-center gap-3 text-xs font-bold tracking-[0.2em] uppercase text-gold mb-4">
+          <span class="block w-5 h-0.5 bg-gold rounded-full" />
+          {pp.kids.label}
+        </span>
+        <h2 class="font-heading text-3xl md:text-4xl lg:text-5xl font-bold leading-tight mb-4 text-cream">
+          {pp.kids.title}
+        </h2>
+        <p class="text-cream/40 text-base md:text-lg max-w-xl mx-auto">
+          {pp.kids.subtitle}
+        </p>
+        <div class="inline-flex items-center gap-2 mt-5 px-4 py-2 bg-gold/10 border border-gold/20 rounded-full">
+          <span class="text-2xl">{pp.kids.badgeIcon}</span>
+          <span class="text-gold text-sm font-semibold">{pp.kids.badge}</span>
+        </div>
+      </div>
+
+      <!-- Three columns -->
+      <div class="grid md:grid-cols-3 gap-6">
+
+        <!-- COLUMN 1: Online UA -->
+        <div class="reveal bg-forest/60 backdrop-blur-sm border border-cream/10 rounded-2xl overflow-hidden">
+          <div class="px-7 py-5 border-b border-cream/10 bg-cream/[0.03]">
+            <div class="flex items-center gap-3 mb-1">
+              <svg class="w-5 h-5 text-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 15V5.25m18 0A2.25 2.25 0 0018.75 3H5.25A2.25 2.25 0 003 5.25m18 0V12a9 9 0 11-18 0V5.25"/>
+              </svg>
+              <h3 class="font-heading text-lg font-bold text-cream">{pp.kids.columns.onlineUa.title}</h3>
+            </div>
+            <p class="text-cream/30 text-xs">{pp.kids.columns.onlineUa.sub}</p>
+          </div>
+
+          <div class="divide-y divide-cream/5">
+            {kidsOnlineUa.map((row) => (
+              <div class:list={['px-7 py-5 hover:bg-cream/[0.03] transition-colors relative', row.popular && 'bg-gold/[0.06] border-l-2 border-l-gold']}>
+                {row.popular && (
+                  <span class="absolute top-3 right-4 px-2.5 py-0.5 bg-gold text-forest-dark text-[9px] font-bold rounded-full uppercase tracking-wider">{pp.popular}</span>
+                )}
+                <div class="flex items-center justify-between gap-4 mb-2">
+                  <div>
+                    <h4 class="text-cream/90 font-semibold text-sm">{row.name}</h4>
+                    <span class="text-cream/30 text-xs">{row.duration}</span>
+                  </div>
+                  <div class="text-right">
+                    <div class="flex items-baseline gap-1">
+                      <span class="text-xl font-extrabold text-gold">{row.price}</span>
+                      <span class="text-cream/40 text-xs">{pp.currency.uah}</span>
+                    </div>
+                  </div>
+                </div>
+                {(row.per || row.saving) && (
+                  <div class="flex items-center justify-between gap-4">
+                    {row.per && <span class="text-cream/30 text-xs">{row.per} {pp.currency.uah}/{pp.perLesson}</span>}
+                    {row.saving && (
+                      <span class="text-forest-dark text-xs font-semibold bg-gold/20 text-gold px-2.5 py-0.5 rounded-full">
+                        {row.saving}
+                      </span>
+                    )}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+
+          <div class="px-7 py-5">
+            <a href={contactPath} class="btn-gold w-full !py-3.5 text-center !text-sm">{pp.signUp}</a>
+          </div>
+        </div>
+
+        <!-- COLUMN 2: Offline Dnipro -->
+        <div class="reveal bg-forest/60 backdrop-blur-sm border border-cream/10 rounded-2xl overflow-hidden">
+          <div class="px-7 py-5 border-b border-cream/10 bg-gold/[0.06]">
+            <div class="flex items-center gap-3 mb-1">
+              <svg class="w-5 h-5 text-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/>
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/>
+              </svg>
+              <h3 class="font-heading text-lg font-bold text-cream">{pp.kids.columns.offlineDnipro.title}</h3>
+            </div>
+            <p class="text-cream/30 text-xs">{pp.kids.columns.offlineDnipro.sub}</p>
+          </div>
+
+          <div class="divide-y divide-cream/5">
+            {kidsOfflineDnipro.map((row) => (
+              <div class:list={['px-7 py-5 hover:bg-cream/[0.03] transition-colors relative', row.popular && 'bg-gold/[0.06] border-l-2 border-l-gold']}>
+                {row.popular && (
+                  <span class="absolute top-3 right-4 px-2.5 py-0.5 bg-gold text-forest-dark text-[9px] font-bold rounded-full uppercase tracking-wider">{pp.popular}</span>
+                )}
+                <div class="flex items-center justify-between gap-4 mb-2">
+                  <div>
+                    <h4 class="text-cream/90 font-semibold text-sm">{row.name}</h4>
+                    <span class="text-cream/30 text-xs">{row.duration}</span>
+                  </div>
+                  <div class="text-right">
+                    <div class="flex items-baseline gap-1">
+                      <span class="text-xl font-extrabold text-gold">{row.price}</span>
+                      <span class="text-cream/40 text-xs">{pp.currency.uah}</span>
+                    </div>
+                  </div>
+                </div>
+                {(row.per || row.saving) && (
+                  <div class="flex items-center justify-between gap-4">
+                    {row.per && <span class="text-cream/30 text-xs">{row.per} {pp.currency.uah}/{pp.perLesson}</span>}
+                    {row.saving && (
+                      <span class="text-forest-dark text-xs font-semibold bg-gold/20 text-gold px-2.5 py-0.5 rounded-full">
+                        {row.saving}
+                      </span>
+                    )}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+
+          <div class="px-7 py-5">
+            <a href={contactPath} class="btn-outline w-full !py-3.5 text-center !text-sm !border-cream/20 !text-cream hover:!border-gold hover:!bg-gold hover:!text-white">{pp.signUp}</a>
+          </div>
+        </div>
+
+        <!-- COLUMN 3: Online Europe EUR -->
+        <div class="reveal bg-forest/60 backdrop-blur-sm border border-gold/30 rounded-2xl overflow-hidden ring-1 ring-gold/20">
+          <div class="px-7 py-5 border-b border-cream/10 bg-cream/[0.03]">
+            <div class="flex items-center gap-3 mb-1">
+              <svg class="w-5 h-5 text-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418"/>
+              </svg>
+              <h3 class="font-heading text-lg font-bold text-cream">{pp.kids.columns.onlineEu.title}</h3>
+            </div>
+            <p class="text-cream/30 text-xs">{pp.kids.columns.onlineEu.sub}</p>
+          </div>
+
+          <div class="divide-y divide-cream/5">
+            {kidsOnlineEu.map((row) => (
+              <div class:list={['px-7 py-5 hover:bg-cream/[0.03] transition-colors relative', row.popular && 'bg-gold/[0.06] border-l-2 border-l-gold']}>
+                {row.popular && (
+                  <span class="absolute top-3 right-4 px-2.5 py-0.5 bg-gold text-forest-dark text-[9px] font-bold rounded-full uppercase tracking-wider">{pp.popular}</span>
+                )}
+                <div class="flex items-center justify-between gap-4 mb-2">
+                  <div>
+                    <h4 class="text-cream/90 font-semibold text-sm">{row.name}</h4>
+                    <span class="text-cream/30 text-xs">{row.duration}</span>
+                  </div>
+                  <div class="text-right">
+                    <div class="flex items-baseline gap-1">
+                      <span class="text-xl font-extrabold text-gold">{row.price}</span>
+                      <span class="text-cream/40 text-xs">{pp.currency.eur}</span>
+                    </div>
+                  </div>
+                </div>
+                {(row.per || row.saving) && (
+                  <div class="flex items-center justify-between gap-4">
+                    {row.per && <span class="text-cream/30 text-xs">{row.per} {pp.currency.eur}/{pp.perLesson}</span>}
+                    {row.saving && (
+                      <span class="text-forest-dark text-xs font-semibold bg-gold/20 text-gold px-2.5 py-0.5 rounded-full">
+                        {row.saving}
+                      </span>
+                    )}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+
+          <div class="px-7 py-5">
+            <a href={contactPath} class="btn-gold w-full !py-3.5 text-center !text-sm">{pp.signUp}</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Note -->
+      <p class="text-cream/25 text-xs text-center mt-8 max-w-lg mx-auto leading-relaxed">
+        {pp.kids.note}
+      </p>
+    </div>
+  </section>
+
+  <!-- BONUSES -->
+  <section class="py-16 md:py-20 bg-gray-50">
+    <div class="max-w-5xl mx-auto px-5">
+      <div class="text-center mb-10 reveal">
+        <span class="section-label justify-center">{pp.bonuses.label}</span>
+        <h2 class="section-title text-forest-dark !text-2xl md:!text-3xl">{pp.bonuses.title}</h2>
+      </div>
+
+      <div class="grid sm:grid-cols-3 gap-5 reveal">
+        {pp.bonuses.items.map((bonus) => (
+          <div class="bg-white border border-gray-200 rounded-2xl p-6 hover:border-gold/15 transition-all duration-300">
+            <div class="text-3xl mb-3">{bonus.icon}</div>
+            <h4 class="text-forest font-semibold text-sm mb-2">{bonus.title}</h4>
+            <p class="text-gray-500 text-xs leading-relaxed">{bonus.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- GIFT CERTIFICATES -->
+  <section class="py-20 md:py-28 bg-white">
+    <div class="max-w-6xl mx-auto px-5">
+      <div class="text-center mb-14 reveal">
+        <span class="section-label justify-center">{pp.gifts.label || ''}</span>
+        <h2 class="section-title text-forest-dark">{pp.gifts.title}</h2>
+        <p class="section-subtitle mx-auto">{pp.gifts.text}</p>
+      </div>
+
+      <div class="reveal max-w-4xl mx-auto mb-14">
+        <div class="relative group cert-wrapper">
+          <!-- Animated gold glow -->
+          <div class="absolute -inset-4 rounded-[2rem] opacity-0 group-hover:opacity-100 transition-opacity duration-700 blur-lg cert-glow" />
+
+          <!-- Sparkles -->
+          <div class="absolute inset-0 pointer-events-none overflow-visible z-10" aria-hidden="true">
+            <span class="cert-sparkle absolute w-1.5 h-1.5 bg-gold/60 rounded-full" style="top:-2%;left:10%;--dur:2.5s;--delay:0s" />
+            <span class="cert-sparkle absolute w-1 h-1 bg-gold/40 rounded-full" style="top:8%;right:8%;--dur:3.2s;--delay:-0.8s" />
+            <span class="cert-sparkle absolute w-2 h-2 bg-gold/30 rounded-full" style="top:50%;left:-1%;--dur:4s;--delay:-1.5s" />
+            <span class="cert-sparkle absolute w-1 h-1 bg-gold/50 rounded-full" style="bottom:5%;right:15%;--dur:2.8s;--delay:-2s" />
+            <span class="cert-sparkle absolute w-1.5 h-1.5 bg-gold/35 rounded-full" style="bottom:-2%;left:40%;--dur:3.5s;--delay:-0.5s" />
+            <span class="cert-sparkle absolute w-1 h-1 bg-white/40 rounded-full" style="top:20%;left:50%;--dur:3s;--delay:-3s" />
+            <span class="cert-sparkle absolute w-1.5 h-1.5 bg-gold/45 rounded-full" style="bottom:30%;right:-1%;--dur:3.8s;--delay:-1.2s" />
+          </div>
+
+          <!-- Shimmer sweep -->
+          <div class="absolute inset-0 rounded-2xl overflow-hidden z-10 pointer-events-none">
+            <div class="cert-shimmer absolute inset-0" />
+          </div>
+
+          <!-- Certificate image -->
+          <div class="relative rounded-2xl overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.12)] border-2 border-gold/25 group-hover:shadow-[0_32px_100px_rgba(212,160,23,0.22)] group-hover:border-gold/40 transition-all duration-500">
+            <img
+              src="/images/certificate.jpg"
+              alt={pp.gifts.title}
+              class="w-full h-auto block transition-transform duration-700 group-hover:scale-[1.03]"
+              loading="lazy"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-4xl mx-auto mb-10">
+        {pp.gifts.options.map((opt, idx) => (
+          <div class:list={[
+            'reveal stagger flex items-center gap-3 px-5 py-4 rounded-2xl border text-sm font-medium transition-all duration-300 hover:-translate-y-1',
+            idx === 3
+              ? 'bg-gold/8 border-gold/25 text-gold hover:shadow-[0_8px_24px_rgba(212,160,23,0.15)]'
+              : 'bg-white border-gray-200 text-gray-600 hover:border-gold/30 hover:shadow-md',
+          ]} style={`--stagger: ${idx}`}>
+            <div class:list={[
+              'w-9 h-9 rounded-xl flex items-center justify-center shrink-0',
+              idx === 3 ? 'bg-gold/15' : 'bg-forest/5',
+            ]}>
+              <svg class:list={['w-4 h-4', idx === 3 ? 'text-gold' : 'text-forest']} fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M21 11.25v8.25a1.5 1.5 0 01-1.5 1.5H5.25a1.5 1.5 0 01-1.5-1.5v-8.25M12 4.875A2.625 2.625 0 109.375 7.5H12m0-2.625V7.5m0-2.625A2.625 2.625 0 1114.625 7.5H12m0 0V21m-8.625-9.75h18c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125h-18c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z"/>
+              </svg>
+            </div>
+            {opt}
+          </div>
+        ))}
+      </div>
+
+      <div class="text-center">
+        <a href={contactPath} class="btn-gold !px-10 !py-4 !text-base group">
+          {pp.gifts.button}
+          <svg class="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PAYMENT METHODS -->
+  <section class="py-16 md:py-20 bg-gray-50">
+    <div class="max-w-5xl mx-auto px-5">
+      <div class="text-center mb-10 reveal">
+        <span class="section-label justify-center">{pp.payment.label}</span>
+        <h2 class="section-title text-forest-dark !text-2xl md:!text-3xl">{pp.payment.title}</h2>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 reveal">
+        {pp.payment.methods.map((method) => (
+          <div class="bg-white border border-gray-200 rounded-xl p-5 text-center hover:border-gold/15 transition-colors duration-300">
+            <div class="text-2xl mb-2">{method.icon}</div>
+            <h4 class="text-forest text-sm font-semibold mb-0.5">{method.name}</h4>
+            <p class="text-gray-400 text-xs">{method.sub}</p>
+          </div>
+        ))}
+      </div>
+
+      <p class="text-gray-500 text-sm font-medium text-center mt-6 max-w-lg mx-auto leading-relaxed" set:html={pp.payment.note} />
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="py-20 md:py-28 bg-white">
+    <div class="max-w-3xl mx-auto px-5">
+      <div class="text-center mb-14 reveal">
+        <span class="section-label justify-center">FAQ</span>
+        <h2 class="section-title text-forest-dark">{i.pricing.faq.title}</h2>
+      </div>
+
+      <div class="space-y-0 reveal">
+        {i.pricing.faq.items.map((faq) => (
+          <div class="border-b border-gray-200" data-faq>
+            <button
+              class="w-full flex items-center justify-between gap-4 py-6 text-left text-forest font-medium text-sm hover:text-gold transition-colors cursor-pointer"
+              data-faq-btn
+            >
+              <span>{faq.q}</span>
+              <span class="text-gold text-lg transition-transform duration-300 shrink-0 faq-icon">+</span>
+            </button>
+            <div class="overflow-hidden max-h-0 transition-all duration-400 faq-answer">
+              <p class="pb-6 text-gray-500 text-sm leading-relaxed">{faq.a}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="relative bg-gradient-to-b from-forest-dark via-forest to-forest-dark py-20 overflow-hidden">
+    <div class="absolute -top-24 -right-24 w-96 h-96 bg-gold/5 rounded-full blur-3xl pointer-events-none" />
+    <div class="relative max-w-7xl mx-auto px-5 text-center">
+      <h2 class="font-heading text-3xl md:text-4xl font-bold text-cream mb-4">{pp.cta.title}</h2>
+      <p class="text-cream/50 text-base md:text-lg mb-8 max-w-lg mx-auto">{pp.cta.subtitle}</p>
+      <a href={contactPath} class="btn-gold !px-10 !py-4 !text-base group">
+        {pp.cta.button}
+        <svg class="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+        </svg>
+      </a>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<script>
+  // FAQ accordion
+  document.querySelectorAll('[data-faq-btn]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const item = btn.closest('[data-faq]');
+      const answer = item?.querySelector('.faq-answer') as HTMLElement;
+      const icon = item?.querySelector('.faq-icon');
+      const isOpen = answer?.style.maxHeight && answer.style.maxHeight !== '0px';
+
+      document.querySelectorAll('[data-faq]').forEach((el) => {
+        const a = el.querySelector('.faq-answer') as HTMLElement;
+        const ic = el.querySelector('.faq-icon');
+        if (a) a.style.maxHeight = '0px';
+        if (ic) ic.style.transform = 'rotate(0deg)';
+      });
+
+      if (!isOpen && answer) {
+        answer.style.maxHeight = answer.scrollHeight + 'px';
+        if (icon) (icon as HTMLElement).style.transform = 'rotate(45deg)';
+      }
+    });
+  });
+</script>
+
+<style is:global>
+  /* Sparkle twinkle */
+  .cert-sparkle {
+    animation: certSparkle var(--dur, 3s) ease-in-out var(--delay, 0s) infinite;
+  }
+  @keyframes certSparkle {
+    0%, 100% { opacity: 0; transform: scale(0.3); }
+    50% { opacity: 1; transform: scale(1.3); }
+  }
+
+  /* Rotating gold glow */
+  .cert-glow {
+    background: conic-gradient(
+      from 0deg,
+      rgba(212, 160, 23, 0.15),
+      rgba(212, 160, 23, 0.05),
+      rgba(212, 160, 23, 0.2),
+      rgba(212, 160, 23, 0.05),
+      rgba(212, 160, 23, 0.15)
+    );
+    animation: certGlowRotate 8s linear infinite;
+  }
+  @keyframes certGlowRotate {
+    0% { filter: blur(16px) hue-rotate(0deg); }
+    50% { filter: blur(20px) hue-rotate(15deg); }
+    100% { filter: blur(16px) hue-rotate(0deg); }
+  }
+
+  /* Light sweep shimmer */
+  .cert-shimmer {
+    background: linear-gradient(
+      105deg,
+      transparent 40%,
+      rgba(255, 255, 255, 0.08) 45%,
+      rgba(255, 255, 255, 0.15) 50%,
+      rgba(255, 255, 255, 0.08) 55%,
+      transparent 60%
+    );
+    background-size: 300% 100%;
+    animation: certSweep 5s ease-in-out infinite;
+  }
+  @keyframes certSweep {
+    0% { background-position: 150% 0; }
+    100% { background-position: -150% 0; }
+  }
+</style>
+
