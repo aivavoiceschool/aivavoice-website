@@ -19,33 +19,15 @@ export const POST: APIRoute = async ({ request }) => {
       return new Response(JSON.stringify({ error: "Телефон обов'язковий" }), { status: 400, headers });
     }
 
-    // Get env from Cloudflare Workers (Astro v6+)
-    let botToken: string | undefined;
-    let chatId: string | undefined;
-    let turnstileSecret: string | undefined;
-    let envSource = 'none';
+    // Get env — try all methods
+    const botToken = import.meta.env.TELEGRAM_BOT_TOKEN || (globalThis as any).process?.env?.TELEGRAM_BOT_TOKEN;
+    const chatId = import.meta.env.TELEGRAM_CHAT_ID || (globalThis as any).process?.env?.TELEGRAM_CHAT_ID;
+    const turnstileSecret = import.meta.env.TURNSTILE_SECRET_KEY || (globalThis as any).process?.env?.TURNSTILE_SECRET_KEY;
 
-    try {
-      const { env } = await import('cloudflare:workers');
-      console.log('[CONTACT] cloudflare:workers imported OK');
-      console.log('[CONTACT] env keys:', Object.keys(env || {}));
-      botToken = (env as any).TELEGRAM_BOT_TOKEN;
-      chatId = (env as any).TELEGRAM_CHAT_ID;
-      turnstileSecret = (env as any).TURNSTILE_SECRET_KEY;
-      envSource = 'cloudflare:workers';
-    } catch (e) {
-      console.log('[CONTACT] cloudflare:workers import failed:', e);
-      // Fallback for local dev
-      botToken = import.meta.env.TELEGRAM_BOT_TOKEN;
-      chatId = import.meta.env.TELEGRAM_CHAT_ID;
-      turnstileSecret = import.meta.env.TURNSTILE_SECRET_KEY;
-      envSource = 'import.meta.env';
-    }
-
-    console.log('[CONTACT] envSource:', envSource);
     console.log('[CONTACT] botToken exists:', !!botToken, '| chatId exists:', !!chatId);
     console.log('[CONTACT] botToken preview:', botToken ? botToken.substring(0, 8) + '...' : 'EMPTY');
     console.log('[CONTACT] chatId:', chatId || 'EMPTY');
+    console.log('[CONTACT] import.meta.env keys:', Object.keys(import.meta.env).filter(k => k.startsWith('TELEGRAM')));
 
     if (!botToken || !chatId) {
       console.error('[CONTACT] ERROR: Telegram credentials not found!');
