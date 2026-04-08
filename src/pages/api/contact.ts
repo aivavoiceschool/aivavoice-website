@@ -2,7 +2,7 @@ import type { APIRoute } from 'astro';
 
 export const prerender = false;
 
-export const POST: APIRoute = async ({ request, locals }) => {
+export const POST: APIRoute = async ({ request }) => {
   const headers = {
     'Content-Type': 'application/json',
     'Access-Control-Allow-Origin': '*',
@@ -18,23 +18,30 @@ export const POST: APIRoute = async ({ request, locals }) => {
       return new Response(JSON.stringify({ error: "Телефон обов'язковий" }), { status: 400, headers });
     }
 
-    // Get env from Cloudflare runtime
-    const runtime = (locals as any).runtime;
-    const env = runtime?.env ?? {};
-    const botToken = env.TELEGRAM_BOT_TOKEN || import.meta.env.TELEGRAM_BOT_TOKEN;
-    const chatId = env.TELEGRAM_CHAT_ID || import.meta.env.TELEGRAM_CHAT_ID;
+    // Get env from Cloudflare Workers (Astro v6+)
+    let botToken: string | undefined;
+    let chatId: string | undefined;
+    let turnstileSecret: string | undefined;
+
+    try {
+      const { env } = await import('cloudflare:workers');
+      botToken = (env as any).TELEGRAM_BOT_TOKEN;
+      chatId = (env as any).TELEGRAM_CHAT_ID;
+      turnstileSecret = (env as any).TURNSTILE_SECRET_KEY;
+    } catch {
+      // Fallback for local dev
+      botToken = import.meta.env.TELEGRAM_BOT_TOKEN;
+      chatId = import.meta.env.TELEGRAM_CHAT_ID;
+      turnstileSecret = import.meta.env.TURNSTILE_SECRET_KEY;
+    }
 
     if (!botToken || !chatId) {
-      console.log('--- Contact Form Submission (no Telegram configured) ---');
-      console.log('Name:', body.name);
-      console.log('Phone:', body.phone);
-      console.log('Message:', body.message || '(empty)');
-      console.log('Lang:', body.lang || 'uk');
+      console.log('--- Contact Form (no Telegram configured) ---');
+      console.log('Name:', body.name, '| Phone:', body.phone);
       return new Response(JSON.stringify({ ok: true }), { status: 200, headers });
     }
 
     // Validate Turnstile if configured
-    const turnstileSecret = env.TURNSTILE_SECRET_KEY || import.meta.env.TURNSTILE_SECRET_KEY;
     if (turnstileSecret) {
       const turnstileRes = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
         method: 'POST',
@@ -81,7 +88,8 @@ export const POST: APIRoute = async ({ request, locals }) => {
     );
 
     if (!tgRes.ok) {
-      console.error('Telegram API error:', await tgRes.text());
+      const tgError = await tgRes.text();
+      console.error('Telegram API error:', tgError);
       return new Response(JSON.stringify({ error: 'Помилка надсилання' }), { status: 500, headers });
     }
 
