@@ -1,6 +1,8 @@
 import type { APIRoute } from 'astro';
 
-export const POST: APIRoute = async ({ request }) => {
+export const prerender = false;
+
+export const POST: APIRoute = async ({ request, locals }) => {
   const headers = {
     'Content-Type': 'application/json',
     'Access-Control-Allow-Origin': '*',
@@ -16,19 +18,37 @@ export const POST: APIRoute = async ({ request }) => {
       return new Response(JSON.stringify({ error: "Телефон обов'язковий" }), { status: 400, headers });
     }
 
-    // Telegram bot config from env
-    const botToken = import.meta.env.TELEGRAM_BOT_TOKEN;
-    const chatId = import.meta.env.TELEGRAM_CHAT_ID;
+    // Get env from Cloudflare runtime
+    const runtime = (locals as any).runtime;
+    const env = runtime?.env ?? {};
+    const botToken = env.TELEGRAM_BOT_TOKEN || import.meta.env.TELEGRAM_BOT_TOKEN;
+    const chatId = env.TELEGRAM_CHAT_ID || import.meta.env.TELEGRAM_CHAT_ID;
 
     if (!botToken || !chatId) {
-      // No Telegram configured — just log and return success for dev
-      console.log('--- Contact Form Submission ---');
+      console.log('--- Contact Form Submission (no Telegram configured) ---');
       console.log('Name:', body.name);
       console.log('Phone:', body.phone);
       console.log('Message:', body.message || '(empty)');
       console.log('Lang:', body.lang || 'uk');
-      console.log('------------------------------');
       return new Response(JSON.stringify({ ok: true }), { status: 200, headers });
+    }
+
+    // Validate Turnstile if configured
+    const turnstileSecret = env.TURNSTILE_SECRET_KEY || import.meta.env.TURNSTILE_SECRET_KEY;
+    if (turnstileSecret) {
+      const turnstileRes = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams({
+          secret: turnstileSecret,
+          response: body.turnstileToken || '',
+          remoteip: request.headers.get('CF-Connecting-IP') || '',
+        }),
+      });
+      const turnstileData = await turnstileRes.json() as { success: boolean };
+      if (!turnstileData.success) {
+        return new Response(JSON.stringify({ error: 'Перевірка captcha не пройдена' }), { status: 403, headers });
+      }
     }
 
     // Build Telegram message
@@ -70,6 +90,16 @@ export const POST: APIRoute = async ({ request }) => {
     console.error('Contact form error:', err);
     return new Response(JSON.stringify({ error: 'Внутрішня помилка сервера' }), { status: 500, headers });
   }
+};
+
+export const OPTIONS: APIRoute = async () => {
+  return new Response(null, {
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'POST, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type',
+    },
+  });
 };
 
 function escapeMarkdown(text: string): string {
