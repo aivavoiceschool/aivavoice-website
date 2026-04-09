@@ -26,6 +26,26 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? 'https://aivavoic
   gtag('js', new Date());
   gtag('config', 'G-40T76VMF6D');
 </script>
+<!-- GA Event Tracking -->
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('a[href^="tel:"]').forEach(el => {
+      el.addEventListener('click', () => gtag('event', 'click_phone'));
+    });
+    document.querySelectorAll('a[href*="t.me"], a[href*="telegram"]').forEach(el => {
+      el.addEventListener('click', () => gtag('event', 'click_telegram'));
+    });
+    document.querySelectorAll('a[href*="viber"]').forEach(el => {
+      el.addEventListener('click', () => gtag('event', 'click_viber'));
+    });
+    document.querySelectorAll('a[href*="instagram"]').forEach(el => {
+      el.addEventListener('click', () => gtag('event', 'click_instagram'));
+    });
+    document.querySelectorAll('form').forEach(form => {
+      form.addEventListener('submit', () => gtag('event', 'form_submit'));
+    });
+  });
+</script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content={description} />
