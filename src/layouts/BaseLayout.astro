@@ -48,6 +48,16 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? 'https://aivavoic
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet" />
 
   <title>{title}</title>
+
+  <!-- Google Analytics (GA4) -->
+  <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-40T76VMF6D"></script>
+  <script is:inline>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    window.gtag = gtag;
+    gtag('js', new Date());
+    gtag('config', 'G-40T76VMF6D');
+  </script>
 </head>
 <body class="min-h-screen flex flex-col">
   <Header />
@@ -67,6 +77,26 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? 'https://aivavoic
       { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
     );
     document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+
+    // GA4 contact link tracking (delegated)
+    document.addEventListener('click', (e) => {
+      const target = e.target as HTMLElement | null;
+      const link = target?.closest('a') as HTMLAnchorElement | null;
+      if (!link) return;
+      const href = link.getAttribute('href') || '';
+      const gtag = (window as any).gtag;
+      if (typeof gtag !== 'function') return;
+
+      if (href.startsWith('tel:')) {
+        gtag('event', 'click_phone', { link_url: href });
+      } else if (href.startsWith('viber:') || href.includes('viber://')) {
+        gtag('event', 'click_viber', { link_url: href });
+      } else if (href.includes('t.me/') || href.includes('telegram.me/')) {
+        gtag('event', 'click_telegram', { link_url: href });
+      } else if (href.includes('instagram.com/')) {
+        gtag('event', 'click_instagram', { link_url: href });
+      }
+    });
 
     // Header scroll shadow
     const header = document.querySelector('[data-header]');

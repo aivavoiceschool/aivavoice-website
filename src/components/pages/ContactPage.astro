@@ -343,6 +343,14 @@ const f = c.form;
         // Success
         form.style.display = 'none';
         formSuccess.classList.remove('hidden');
+
+        // GA4 event
+        if (typeof (window as any).gtag === 'function') {
+          (window as any).gtag('event', 'form_submit', {
+            form_name: 'contact_lesson_request',
+            lang: formLang,
+          });
+        }
       } catch (err) {
         formError.classList.remove('hidden');
         submitBtn.textContent = originalText;
