@@ -18,6 +18,16 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? 'https://aivavoic
 <!DOCTYPE html>
 <html lang={lang}>
 <head>
+  <!-- Google tag (gtag.js) -->
+  <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=GT-P36VBGFC"></script>
+  <script is:inline>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    window.gtag = gtag;
+    gtag('js', new Date());
+    gtag('config', 'GT-P36VBGFC');
+  </script>
+
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content={description} />
@@ -40,16 +50,6 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? 'https://aivavoic
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet" />
 
   <title>{title}</title>
-
-  <!-- Google Analytics (GA4) -->
-  <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=GT-P36VBGFC"></script>
-  <script is:inline>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    window.gtag = gtag;
-    gtag('js', new Date());
-    gtag('config', 'GT-P36VBGFC');
-  </script>
 </head>
 <body class="min-h-screen flex flex-col">
   <Header />
