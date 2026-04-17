@@ -12,21 +12,12 @@ interface Props {
 const { title, description } = Astro.props;
 const lang = getLangFromUrl(Astro.url);
 const ogLocale = lang === 'en' ? 'en_US' : 'uk_UA';
-const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? 'https://aivavoice.com');
+const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? 'https://aivavoiceschool.com');
 ---
 
 <!DOCTYPE html>
 <html lang={lang}>
 <head>
-<!-- Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-40T76VMF6D"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-40T76VMF6D');
- gtag('config', 'AW-18087809104');
-</script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content={description} />
