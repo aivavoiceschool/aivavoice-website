@@ -193,6 +193,78 @@ const i = t(lang);
     </div>
   </section>
 
+<!-- ====== Propose ====== -->
+<section class="pt-8 mb-20 md:mb-28 pb-4 bg-white">
+  <div class="max-w-7xl mx-auto px-5">
+
+    <div class="text-center mb-5">
+      <span class="section-label justify-center">{i.propose.label}</span>
+
+      <h2 class="section-title text-forest-dark text-center mx-auto !text-4xl max-w-[800px] md:!text-5xl">
+        {i.propose.title}
+      </h2>
+    </div>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-5 items-start">
+      {i.propose.list.map((item) => (
+        <div class="bg-white border border-[#D2D5DC] rounded-2xl p-6 hover:border-forest transition-all duration-300">
+
+          <h3 class="section-title text-forest-dark !text-2xl md:!text-3xl">
+            {item.title}
+          </h3>
+
+          <div class="flex flex-col gap-2 text-sm text-black-400 leading-relaxed">
+
+            {item.text?.map((paragraph) => (
+              <p>{paragraph}</p>
+            ))}
+
+            {item.items && (
+             
+                <h3 class="text-xl font-bold">
+                  {item.list_title}
+                </h3>
+
+                <ul class="text-sm text-black-400 flex flex-col gap-1">
+                  {item.items.map((listItem) => (
+                    <li class="text-gray-600 relative pl-5 before:content-['—'] before:absolute before:left-0">
+                      {listItem}
+                    </li>
+                  ))}
+                </ul>
+            )}
+
+            {item.address && (
+              
+                <h3 class="text-xl font-bold">
+                  {item.address_title}
+                </h3>
+
+                <div class="text-sm text-black-400 flex flex-col gap-2">
+                  {item.address.map((addressItem) => (
+                    <p class="text-gray-600">
+                      {addressItem}
+                    </p>
+                  ))}
+                </div>
+            )}
+
+            {item.subtext && (
+              <p class="text-gray-600">
+                {item.subtext}
+              </p>
+            )}
+            <button type="button" onclick="openVocalModal();" class="btn-gold flex flex-col mx-auto mt-10 !px-10 leading-none !py-3 !text-sm group"> 
+              <span>Записати дитину</span>
+              <span>на пробний урок</span>
+            </button>
+          </div>
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>
   <!-- ====== FORMATS ====== -->
   <section class="py-20 md:py-28 bg-gray-50">
     <div class="max-w-7xl mx-auto px-5">
