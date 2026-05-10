@@ -14,88 +14,43 @@ const ap = i.aboutPage;
     <div class="max-w-3xl mx-auto px-5">
       <span class="section-label justify-center">{ap.hero.label}</span>
       <h1 class="section-title text-forest-dark">{ap.hero.title}</h1>
-      <p class="section-subtitle mx-auto">
-        {ap.hero.subtitle}
-      </p>
+      {ap.hero.subtitle.map((item) => (
+        <p class="section-subtitle mx-auto">
+          {item.text_1 || item.text_2}
+        </p>
+      ))}
+    </div>
+  </section>
+  <!-- Test lesson -->
+  <section class="pt-16 pb-16 bg-white text-center">
+    <div class="max-w-3xl mx-auto px-5">
+      <span class="section-label justify-center">{ap.tlesson.label}</span>
+      <h1 class="section-title text-forest-dark">{ap.tlesson.title}</h1>
+      <p class="text-gold section-subtitle mx-auto font-semibold uppercase tracking-wider">{ap.tlesson.subtitle}</p>
+      <ul class="flex flex-col w-max py-5 mx-auto gap-3 space-y-2">
+        {ap.tlesson.list.map((item) => (
+          <li class="section-label"><span class="text-black">{item}</span></li>
+        ))}
+      </ul>
+      
+    </div>
+    <div class="flex flex-col gap-2">
+      <span class="text-gold section-subtitle mx-auto font-semibold tracking-wider">{ap.tlesson.phone.title}</span>
+
+      <a
+        href={`tel:${ap.tlesson.phone.value.replace(/\s+/g, '')}`}
+        class="text-gold mx-auto text-4xl sm:text-5xl md:text-6xl lg:text-[4.5rem] font-semibold"
+      >
+        {ap.tlesson.phone.value}
+      </a>
+
+      <span class="text-gold font-medium text-sm">
+        {ap.tlesson.phone.sub}
+      </span>
     </div>
   </section>
 
-  <!-- FOUNDER -->
-  <section class="py-20 md:py-28 bg-gray-50">
-    <div class="max-w-7xl mx-auto px-5">
-      <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-
-        <!-- Photo -->
-        <div class="reveal">
-          <div class="relative group">
-            <div class="absolute -inset-3 bg-gradient-to-br from-gold/20 via-gold/5 to-transparent rounded-[2rem] opacity-0 group-hover:opacity-100 transition-opacity duration-700 blur-sm" />
-            <div class="relative aspect-[3/4] max-w-[420px] mx-auto rounded-3xl overflow-hidden border border-gray-200 shadow-[0_20px_60px_rgba(0,0,0,0.06)] group-hover:border-gold/30 group-hover:shadow-[0_24px_72px_rgba(212,160,23,0.12)] transition-all duration-500">
-              <img
-                src="/images/founder.jpg"
-                alt={ap.founder.title}
-                class="w-full h-full object-cover transition-all duration-700 group-hover:scale-105 group-hover:brightness-105"
-                loading="lazy"
-              />
-            </div>
-          </div>
-        </div>
-
-        <!-- Text -->
-        <div class="reveal">
-          <span class="section-label">{ap.founder.label}</span>
-          <h2 class="section-title text-forest-dark">{ap.founder.title}</h2>
-
-          <div class="space-y-4 mb-8">
-            <p class="text-gray-600 leading-relaxed">
-              {ap.founder.bio1}
-            </p>
-            <p class="text-gray-600 leading-relaxed" set:html={ap.founder.bio2} />
-          </div>
-
-          <!-- Stats row -->
-          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8">
-            {ap.founder.stats.map((s) => (
-              <div class="bg-white border border-gray-200 rounded-xl p-4 text-center">
-                <div class="text-gold text-2xl font-extrabold leading-none mb-1">{s.num}</div>
-                <div class="text-gray-400 text-xs">{s.label}</div>
-              </div>
-            ))}
-          </div>
-
-          <!-- Experience -->
-          <div class="bg-white border border-gray-200 rounded-2xl p-6 mb-6">
-            <h4 class="text-forest-dark font-semibold text-sm mb-2 flex items-center gap-2">
-              <svg class="w-4 h-4 text-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342"/>
-              </svg>
-              {ap.founder.experience.title}
-            </h4>
-            <p class="text-gray-500 text-sm leading-relaxed">
-              {ap.founder.experience.text}
-            </p>
-          </div>
-
-          <!-- Approach -->
-          <div class="bg-white border border-gold/30 rounded-2xl p-6">
-            <h4 class="text-forest-dark font-semibold text-sm mb-2 flex items-center gap-2">
-              <svg class="w-4 h-4 text-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.455 2.456L21.75 6l-1.036.259a3.375 3.375 0 00-2.455 2.456z"/>
-              </svg>
-              {ap.founder.approach.title}
-            </h4>
-            <p class="text-gray-500 text-sm leading-relaxed" set:html={ap.founder.approach.text} />
-          </div>
-
-          <!-- Genre tags -->
-          <div class="flex flex-wrap gap-2 mt-6">
-            {ap.founder.genres.map((tag) => (
-              <span class="px-4 py-1.5 rounded-full text-xs font-medium bg-gold/10 text-gold border border-gold/30">{tag}</span>
-            ))}
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+  
 
   <!-- TEACHING -->
   <section class="py-20 md:py-28 bg-white">
@@ -199,7 +154,98 @@ const ap = i.aboutPage;
       </div>
     </div>
   </section>
+  <!-- TBANNER -->
+  <section class="py-10 md:py-10 bg-white">
+    <div class="max-w-7xl mx-auto px-5">
+      <div class="text-center mb-5 reveal">
+        <span class="section-label justify-center">{ap.tbanner.label}</span>
+        <h2 class="section-title text-forest-dark">{ap.tbanner.title}</h2>
+      </div>
+      <p class="text-center justify-center mx-auto">{ap.tbanner.subtitle}</p>
+      <button type="button" class="btn-gold mx-auto mt-5 flex !px-10 !py-4 !text-base group"> 
+        {ap.tbanner.button} 
+        <svg class="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"> 
+          <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"></path> 
+        </svg> 
+      </button>
+    </div>
+  </section>
+  <!-- FOUNDER -->
+  <section class="py-20 md:py-28 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-5">
+      <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
 
+        <!-- Photo -->
+        <div class="reveal">
+          <div class="relative group">
+            <div class="absolute -inset-3 bg-gradient-to-br from-gold/20 via-gold/5 to-transparent rounded-[2rem] opacity-0 group-hover:opacity-100 transition-opacity duration-700 blur-sm" />
+            <div class="relative aspect-[3/4] max-w-[420px] mx-auto rounded-3xl overflow-hidden border border-gray-200 shadow-[0_20px_60px_rgba(0,0,0,0.06)] group-hover:border-gold/30 group-hover:shadow-[0_24px_72px_rgba(212,160,23,0.12)] transition-all duration-500">
+              <img
+                src="/images/founder.jpg"
+                alt={ap.founder.title}
+                class="w-full h-full object-cover transition-all duration-700 group-hover:scale-105 group-hover:brightness-105"
+                loading="lazy"
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- Text -->
+        <div class="reveal">
+          <span class="section-label">{ap.founder.label}</span>
+          <h2 class="section-title text-forest-dark">{ap.founder.title}</h2>
+
+          <div class="space-y-4 mb-8">
+            <p class="text-gray-600 leading-relaxed">
+              {ap.founder.bio1}
+            </p>
+            <p class="text-gray-600 leading-relaxed" set:html={ap.founder.bio2} />
+          </div>
+
+          <!-- Stats row -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8">
+            {ap.founder.stats.map((s) => (
+              <div class="bg-white border border-gray-200 rounded-xl p-4 text-center">
+                <div class="text-gold text-2xl font-extrabold leading-none mb-1">{s.num}</div>
+                <div class="text-gray-400 text-xs">{s.label}</div>
+              </div>
+            ))}
+          </div>
+
+          <!-- Experience -->
+          <div class="bg-white border border-gray-200 rounded-2xl p-6 mb-6">
+            <h4 class="text-forest-dark font-semibold text-sm mb-2 flex items-center gap-2">
+              <svg class="w-4 h-4 text-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342"/>
+              </svg>
+              {ap.founder.experience.title}
+            </h4>
+            <p class="text-gray-500 text-sm leading-relaxed">
+              {ap.founder.experience.text}
+            </p>
+          </div>
+
+          <!-- Approach -->
+          <div class="bg-white border border-gold/30 rounded-2xl p-6">
+            <h4 class="text-forest-dark font-semibold text-sm mb-2 flex items-center gap-2">
+              <svg class="w-4 h-4 text-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.455 2.456L21.75 6l-1.036.259a3.375 3.375 0 00-2.455 2.456z"/>
+              </svg>
+              {ap.founder.approach.title}
+            </h4>
+            <p class="text-gray-500 text-sm leading-relaxed" set:html={ap.founder.approach.text} />
+          </div>
+
+          <!-- Genre tags -->
+          <div class="flex flex-wrap gap-2 mt-6">
+            {ap.founder.genres.map((tag) => (
+              <span class="px-4 py-1.5 rounded-full text-xs font-medium bg-gold/10 text-gold border border-gold/30">{tag}</span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
   <!-- CTA -->
   <section class="relative bg-gradient-to-b from-forest-dark via-forest to-forest-dark py-20 overflow-hidden">
     <div class="absolute -top-24 -right-24 w-96 h-96 bg-gold/5 rounded-full blur-3xl pointer-events-none" />
@@ -220,5 +266,5 @@ const ap = i.aboutPage;
       </a>
     </div>
   </section>
-
+  
 </BaseLayout>

@@ -30,11 +30,12 @@ const i = t(lang);
     </div>
 
     <div class="relative z-10 max-w-3xl mx-auto px-5 py-32">
+      <!--
       <div class="hero-fade inline-flex items-center gap-2.5 px-5 py-2.5 bg-white/5 border border-white/10 rounded-full text-sm font-medium text-white/80 mb-10 backdrop-blur-sm" style="--fade-order: 0">
         <span class="w-2 h-2 bg-gold rounded-full animate-pulse" />
         {i.hero.badge}
       </div>
-
+      -->
       <h1 class="font-heading text-[2.2rem] sm:text-5xl md:text-6xl lg:text-[4.5rem] font-bold leading-[1.08] mb-8" style="--fade-order: 1">
         <span class="hero-title-line block text-white">
           {i.hero.title}
@@ -48,7 +49,14 @@ const i = t(lang);
           </span>
         </span>
       </h1>
-
+      <div class="flex gap-4 flex-col mb-5">
+        <p class="hero-fade text-white font-medium text-sm md:text-lg tracking-wide" style="--fade-order: 2.7">
+          {i.hero.text.p_1}
+        </p>
+        <p class="hero-fade text-white font-medium text-sm md:text-lg tracking-wide" style="--fade-order: 2.7">
+          {i.hero.text.p_2}
+        </p>
+      </div>
       <!-- Stats cards -->
       <div class="hero-fade grid grid-cols-3 gap-2 max-w-sm mx-auto mb-5" style="--fade-order: 2.2">
         {i.hero.stats.map((stat) => (
@@ -62,11 +70,13 @@ const i = t(lang);
           </div>
         ))}
       </div>
-
+      <!-- Stars -->
+      <!--
       <p class="hero-fade text-white/40 text-xs md:text-sm tracking-wide mb-2" style="--fade-order: 2.7">
         {lang === 'uk' ? 'Рейтинг наших учнів' : 'Our students\' rating'}
       </p>
-      <!-- Stars -->
+      
+      
       <div class="hero-fade flex items-center justify-center gap-1 mb-5" style="--fade-order: 2.8">
         {[1,2,3,4,5].map(() => (
           <svg class="w-4 h-4 text-gold" fill="currentColor" viewBox="0 0 20 20">
@@ -74,16 +84,29 @@ const i = t(lang);
           </svg>
         ))}
       </div>
+      -->
 
-      <a href={localizedPath('/contact/', lang)} class="hero-cta-btn btn-gold !px-8 !py-4 !text-sm md:!px-10 md:!py-5 md:!text-base group relative overflow-hidden" style="--fade-order: 3">
-        <span class="hero-cta-shimmer absolute inset-0 pointer-events-none" />
-        <span class="relative flex items-center gap-2">
-          {i.hero.cta}
-          <svg class="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
-          </svg>
-        </span>
-      </a>
+      <!-- CTA Buttons -->
+      <div class="flex gap-5 align-center justify-center flex-col md:flex-row py-5 mt-10" style="">
+        <button type="button" onclick="openVocalModal();" class="hero-cta-btn btn-gold !px-8 !py-4 !text-sm md:!px-10 md:!py-5 md:!text-base group relative overflow-hidden" style="--fade-order: 3">
+          <span class="hero-cta-shimmer absolute inset-0 pointer-events-none" />
+          <span class="relative flex items-center gap-2">
+            {i.hero.cta}
+            <svg class="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+            </svg>
+          </span>
+        </button>
+        <a href="{i.hero.pricing.link}" class="hero-cta-btn btn-gold !px-8 !py-4 !text-sm md:!px-10 md:!py-5 md:!text-base group relative overflow-hidden" style="--fade-order: 3">
+          <span class="hero-cta-shimmer absolute inset-0 pointer-events-none" />
+          <span class="relative flex items-center gap-2">
+            {i.hero.pricing.label}
+            <svg class="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+            </svg>
+          </span>
+        </a>
+      </div>
     </div>
 
     <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/20 text-xs animate-bounce">
@@ -135,6 +158,38 @@ const i = t(lang);
           </div>
         ))}
       </div>
+      <div class="mt-10 flex flex-col gap-2"> 
+        <span class="text-gold section-subtitle mx-auto font-semibold tracking-wider">
+        {i.advantages.phone.title}
+        </span> 
+        <a href="tel:{i.advantages.phone.value}" class="text-gold mx-auto text-4xl sm:text-5xl md:text-6xl lg:text-[4.5rem] font-semibold"> 
+          {i.advantages.phone.value}
+        </a> 
+        <span class="text-gold font-medium text-center text-sm"> 
+          {i.advantages.phone.sub}
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <!-- TBANNER -->
+  <section class="py-10 md:py-10 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-5">
+      <div class="text-center mb-5 reveal">
+        <span class="section-label justify-center">{i.tbanner.label}</span>
+        <h2 class="section-title text-forest-dark">{i.tbanner.title}</h2>
+      </div>
+      <h3 class="text-center text-gold text-2xl font-bold justify-center mx-auto">{i.tbanner.subtitle}</h3>
+      <div class="text-left text-sm max-w-4xl mx-auto mt-5 flex flex-col gap-2">
+        <p class="">{i.tbanner.text.p_1}</p>
+        <p class="">{i.tbanner.text.p_2}</p>
+      </div>
+      <button onclick="openVocalModal();" type="button" class="btn-gold mx-auto mt-10 flex !px-10 !py-4 !text-base group"> 
+        {i.tbanner.button} 
+        <svg class="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"> 
+          <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"></path> 
+        </svg> 
+      </button>
     </div>
   </section>
 
@@ -166,7 +221,9 @@ const i = t(lang);
                 )}
               </div>
               <div>
+                
                 <span class="text-gold text-xs font-bold uppercase tracking-wider">{format.badge}</span>
+                
                 <h3 class="text-forest font-semibold text-lg font-heading">{format.title}</h3>
               </div>
             </div>
@@ -195,15 +252,32 @@ const i = t(lang);
     </div>
   </section>
 
-  <!-- ====== TESTIMONIALS ====== -->
-  <section class="py-20 md:py-28 bg-white">
+  <!-- ====== Reviews banner ====== -->
+  <section class="mt-10 bg-white">
     <div class="max-w-7xl mx-auto px-5">
+      <div class="text-center mb-5 reveal">
+        <span class="section-label justify-center">{i.reviews.label}</span>
+        <h2 class="section-title text-forest-dark">{i.reviews.title}</h2>
+      </div>
+      <div class="text-left text-sm max-w-4xl mx-auto mt-5 flex flex-col gap-2">
+        <p class="">{i.reviews.text.p_1}</p>
+        <p class="">{i.reviews.text.p_2}</p>
+      </div>
+      <a href={i.reviews.cta.link} class="btn-gold flex w-max mx-auto mt-5 !px-6 !py-2.5 !text-xs group"> 
+        {i.reviews.cta.label} 
+      </a>
+    </div>
+  </section>
+  <!-- ====== TESTIMONIALS ====== -->
+  <section class="py-10 bg-white">
+    <div class="max-w-7xl mx-auto px-5">
+      <!--
       <div class="text-center mb-14 reveal">
         <span class="section-label justify-center">{i.testimonials.label}</span>
         <h2 class="section-title">{i.testimonials.title}</h2>
         <p class="section-subtitle mx-auto">{i.testimonials.subtitle}</p>
       </div>
-
+      -->
       <div class="grid md:grid-cols-3 gap-6">
         {i.testimonials.items.map((item, idx) => (
           <div class="reveal stagger bg-gray-50 border border-gray-200 rounded-2xl p-7 hover:border-gold/30 hover:-translate-y-1 hover:shadow-md transition-all duration-300 flex flex-col" style={`--stagger: ${idx}`}>
@@ -227,7 +301,7 @@ const i = t(lang);
   </section>
 
   <!-- ====== FAQ ====== -->
-  <section class="py-20 md:py-28 bg-gray-50">
+  <section class="py-10 mt-20 md:mt-20 bg-gray-50">
     <div class="max-w-3xl mx-auto px-5">
       <div class="text-center mb-14 reveal">
         <span class="section-label justify-center">{i.homeFaq.label}</span>
