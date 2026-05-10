@@ -125,3 +125,41 @@
     @apply opacity-100 translate-y-0;
   }
 }
+
+
+/* ===== Contact modal ===== */
+.modal-open {
+  overflow: hidden;
+}
+.modal-open:after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9998;
+}
+.modal-wrapper {
+  padding: 60px;
+  visibility: hidden;
+  overflow: hidden;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 0;
+  width: 100%;
+  position: fixed;
+  background: #FFFFFF;
+  border-radius: 30px;
+}
+
+.modal-open .modal-wrapper {
+  overflow-y: auto;
+  max-height: 100vh;
+  max-width: 900px;
+  visibility: visible;
+  z-index: 9999;
+}

@@ -3,6 +3,7 @@ import { t, getLangFromUrl, localizedPath } from '../i18n';
 
 const lang = getLangFromUrl(Astro.url);
 const i = t(lang);
+const isContactPage = Astro.url.pathname.includes('/contact');
 ---
 
 <footer class="bg-forest-dark border-t border-forest-dark">
@@ -61,3 +62,229 @@ const i = t(lang);
     </div>
   </div>
 </footer>
+
+<!-- Modal Form -->
+
+{!isContactPage && (
+  <>
+    <div id="contact-modal" class="modal-wrapper">
+      <button type="button" class="flex mx-auto mb-10" onclick="closeVocalModal();">
+        <svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+          <path d="M33.234 1.28688e-06L34.6482 1.41421L1.41421 34.6482L0 33.234L33.234 1.28688e-06Z" fill="url(#pattern0_15_1169)"/>
+          <path d="M33.234 1.28688e-06L34.6482 1.41421L1.41421 34.6482L0 33.234L33.234 1.28688e-06Z" fill="#1A4A2E"/>
+          <path d="M34.6482 33.234L33.234 34.6482L1.3487e-06 1.41421L1.41421 0L34.6482 33.234Z" fill="url(#pattern1_15_1169)"/>
+          <path d="M34.6482 33.234L33.234 34.6482L1.3487e-06 1.41421L1.41421 0L34.6482 33.234Z" fill="#1A4A2E"/>
+          <defs>
+          <pattern id="pattern0_15_1169" patternContentUnits="objectBoundingBox" width="1" height="1">
+          <use xlink:href="#image0_15_1169" transform="translate(-0.152542) scale(0.0169492)"/>
+          </pattern>
+          <pattern id="pattern1_15_1169" patternContentUnits="objectBoundingBox" width="1" height="1">
+          <use xlink:href="#image0_15_1169" transform="translate(-0.152542) scale(0.0169492)"/>
+          </pattern>
+          <image id="image0_15_1169" width="77" height="59" preserveAspectRatio="none" xlink:href="data:image/png;base64,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"/>
+          </defs>
+        </svg>
+
+      </button>
+      <h3 class="font-heading text-center text-3xl md:text-[46px] font-bold text-forest mb-6">
+        {i.footer.form.title}
+      </h3>
+      <form id="contactForm" class="space-y-5">
+            <!-- Hidden lang field -->
+            <input type="hidden" name="lang" value={lang} />
+
+            <!-- Name -->
+            <div>
+              <label for="name" class="block text-xs font-semibold text-gray-600 mb-2">{i.footer.form.name} *</label>
+              <input
+                type="text" id="name" name="name" required
+                placeholder={i.footer.form.namePlaceholder}
+                class="w-full px-4 py-3.5 bg-gray-50 border border-gray-200 rounded-xl text-forest-dark text-sm placeholder:text-gray-300 outline-none focus:border-gold focus:ring-2 focus:ring-gold/10 transition-all"
+              />
+            </div>
+
+            <!-- Phone -->
+            <div>
+              <label for="phone" class="block text-xs font-semibold text-gray-600 mb-2">{i.footer.form.phone} *</label>
+              <input
+                type="tel" id="phone" name="phone" required
+                placeholder={i.footer.form.phonePlaceholder}
+                class="w-full px-4 py-3.5 bg-gray-50 border border-gray-200 rounded-xl text-forest-dark text-sm placeholder:text-gray-300 outline-none focus:border-gold focus:ring-2 focus:ring-gold/10 transition-all"
+              />
+            </div>
+
+            <!-- Message -->
+            <div>
+              <label for="message" class="block text-xs font-semibold text-gray-600 mb-2">{i.footer.form.message}</label>
+              <textarea
+                id="message" name="message" rows="4"
+                placeholder={i.footer.form.messagePlaceholder}
+                class="w-full px-4 py-3.5 bg-gray-50 border border-gray-200 rounded-xl text-forest-dark text-sm placeholder:text-gray-300 outline-none focus:border-gold focus:ring-2 focus:ring-gold/10 transition-all resize-y min-h-[120px]"
+              />
+            </div>
+
+            <!-- Cloudflare Turnstile (uncomment when sitekey is configured) -->
+            <!-- <div class="cf-turnstile" data-sitekey="YOUR_SITEKEY" data-theme="light"></div> -->
+
+            <!-- Error message -->
+            <div id="formError" class="hidden text-red-500 text-sm font-medium bg-red-50 border border-red-200 rounded-xl px-4 py-3">
+              {i.footer.form.error}
+            </div>
+
+            <button type="submit" id="submitBtn" class="btn-gold w-full !py-4 cursor-pointer">
+              {i.footer.form.submit}
+            </button>
+          </form>
+
+          <!-- Success -->
+          <div id="formSuccess" class="hidden text-center py-10">
+            <div class="w-16 h-16 rounded-full bg-gold/15 text-gold text-3xl flex items-center justify-center mx-auto mb-5">
+              <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/>
+              </svg>
+            </div>
+            <h3 class="font-heading text-xl font-bold text-forest mb-2">{i.footer.form.success.title}</h3>
+            <p class="text-gray-500 text-sm">{i.footer.form.success.text}</p>
+          </div>
+    </div>
+
+    <script is:inline>
+      window.openVocalModal = function () {
+        var modal = document.getElementById('contact-modal');
+
+        if (modal) {
+          modal.classList.add('active');
+          document.body.classList.add('modal-open');
+        }
+      };
+
+      window.closeVocalModal = function () {
+        var modal = document.getElementById('contact-modal');
+
+        if (modal) {
+          modal.classList.remove('active');
+        }
+
+        document.body.classList.remove('modal-open');
+      };
+
+      document.addEventListener('click', function (e) {
+        if (e.target.classList && e.target.classList.contains('modal-wrapper')) {
+          window.closeVocalModal();
+        }
+      });
+
+      var phoneInput = document.getElementById('phone');
+
+      if (phoneInput) {
+        phoneInput.addEventListener('input', function (e) {
+          var target = e.target;
+          var val = target.value.replace(/\D/g, '');
+
+          if (val.startsWith('380')) {
+            // keep
+          } else if (val.startsWith('80')) {
+            val = '3' + val;
+          } else if (val.startsWith('0')) {
+            val = '38' + val;
+          } else if (!val.startsWith('3')) {
+            val = '380' + val;
+          }
+
+          var formatted = '+';
+
+          if (val.length > 0) formatted += val.substring(0, 3);
+          if (val.length > 3) formatted += ' ' + val.substring(3, 5);
+          if (val.length > 5) formatted += ' ' + val.substring(5, 8);
+          if (val.length > 8) formatted += ' ' + val.substring(8, 10);
+          if (val.length > 10) formatted += ' ' + val.substring(10, 12);
+
+          target.value = formatted;
+        });
+      }
+
+      var form = document.getElementById('contactForm');
+      var submitBtn = document.getElementById('submitBtn');
+      var formError = document.getElementById('formError');
+      var formSuccess = document.getElementById('formSuccess');
+
+      if (form) {
+        form.addEventListener('submit', async function (e) {
+          e.preventDefault();
+
+          if (formError) {
+            formError.classList.add('hidden');
+          }
+
+          var nameInput = document.getElementById('name');
+          var phoneInput = document.getElementById('phone');
+          var messageInput = document.getElementById('message');
+          var langInput = form.querySelector('[name="lang"]');
+
+          var digits = phoneInput.value.replace(/\D/g, '');
+
+          if (digits.length < 12) {
+            phoneInput.setCustomValidity('Введіть повний номер телефону');
+            phoneInput.reportValidity();
+
+            phoneInput.addEventListener('input', function () {
+              phoneInput.setCustomValidity('');
+            }, { once: true });
+
+            return;
+          }
+
+          var originalText = submitBtn.textContent;
+
+          submitBtn.textContent = 'Відправка...';
+          submitBtn.disabled = true;
+          submitBtn.classList.add('opacity-60', 'cursor-not-allowed');
+
+          try {
+            var res = await fetch('/api/contact', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({
+                name: nameInput.value.trim(),
+                phone: phoneInput.value.trim(),
+                message: messageInput.value.trim(),
+                lang: langInput ? langInput.value : 'uk'
+              })
+            });
+
+            if (!res.ok) {
+              throw new Error('Server error');
+            }
+
+            form.reset();
+
+            if (formSuccess) {
+              form.classList.add('hidden');
+              formSuccess.classList.remove('hidden');
+            }
+
+            if (typeof window.gtag === 'function') {
+              window.gtag('event', 'form_submit', {
+                form_name: 'modal_lesson_request',
+                lang: langInput ? langInput.value : 'uk'
+              });
+            }
+          } catch (err) {
+            if (formError) {
+              formError.classList.remove('hidden');
+            }
+          }
+
+          submitBtn.textContent = originalText;
+          submitBtn.disabled = false;
+          submitBtn.classList.remove('opacity-60', 'cursor-not-allowed');
+        });
+      }
+    </script>
+  </>
+)}
+
+
+
