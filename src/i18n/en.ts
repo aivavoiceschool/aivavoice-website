@@ -15,6 +15,10 @@ export const en: Translations = {
       title: 'Pricing — AivaVoice',
       description: 'AivaVoice vocal school pricing: trial lessons, single lessons, and packages. Choose the format that works for you.',
     },
+    privacy: {
+      title: 'Privacy Policy — AivaVoice',
+      description: 'AivaVoice vocal school privacy policy: how we collect, store, and protect the personal data of our website visitors.',
+    },
     reviews: {
       title: 'Reviews — AivaVoice',
       description: 'AivaVoice student reviews. Real stories from children, teens, and adults who discovered their voice.',
@@ -41,43 +45,70 @@ export const en: Translations = {
 
   hero: {
     badge: 'Vocals Without Borders',
-    title: 'Your Voice,',
-    titleAccent: 'Your Power!',
-    subtitle: 'AivaVoice is a space where singing becomes pure joy and a way to rediscover yourself. Here, your voice releases tension, fills you with energy, and brings a happiness that words alone cannot describe.',
+    title: 'Vocal Lessons in Dnipro',
+    titleAccent: 'and online — for children and adults!',
+    text: {
+      p_1: 'We hold private vocal lessons for children from age 3, teens, and adults — in-studio in central Dnipro and online across Ukraine and Europe.',
+      p_2: 'AivaVoice is a vocal school in Dnipro where we teach you to sing from scratch, discover your voice, and work on breathing, ear, rhythm, and confidence.',
+    },
+    subtitle: 'Singing helps you release your fears,<br>open up your emotions, and be yourself.<br>Any age. Anywhere in the world.',
     stats: [
       { num: '500+', label: 'students' },
       { num: '5+', label: 'years of experience' },
       { num: '3 — 60+', label: 'student ages' },
     ],
+    pricing: { label: 'See Pricing', link: '/pricing' },
     cta: 'Book a Trial Lesson',
     scroll: 'Scroll',
   },
 
   advantages: {
-    label: 'Why Choose Us',
-    title: 'Everything for Your Comfort',
+    label: 'Who Our Lessons Are For',
+    title: 'Vocal Lessons for Children, Adults, and Beginners',
+    phone: { title: 'Have questions? Call or message us:', label: 'Phone', value: '+380 68 549 00 47', sub: 'Calls, Viber, Telegram' },
     items: [
       {
-        title: 'Personalized Approach',
-        text: 'Every lesson plan is tailored to each student individually, based on their level and goals',
+        title: 'Vocals for Children',
+        text: 'Developing ear, rhythm, diction, voice, and confidence through music, play, and favorite songs.',
         icon: 'person',
       },
       {
-        title: 'Online & In-Studio',
-        text: 'Learn from anywhere in the world or visit our studio in Dnipro',
+        title: 'In-Studio in Dnipro & Online from any city in Ukraine or abroad',
+        text: 'A convenient format for those who live outside Dnipro or want to study from home.',
         icon: 'globe',
       },
       {
-        title: 'Ages 3 and Up',
-        text: 'We teach children from age 3 with a special playful approach for the little ones',
+        title: 'Vocals for Adults',
+        text: 'Learn to sing from scratch, stop being shy about your voice, and sing for yourself, the stage, or karaoke.',
         icon: 'star',
       },
       {
-        title: 'Flexible Schedule',
-        text: 'We will find a time that works best for you — morning, afternoon, or evening',
+        title: 'Convenient Format & Lesson Times',
+        text: 'We will find a time that works for you — morning, afternoon, or evening.',
         icon: 'clock',
       },
     ],
+  },
+
+  tbanner: {
+    label: 'Trial Lesson',
+    title: 'A Trial Vocal Lesson — the First Step Toward Your Voice',
+    subtitle: 'Not sure if singing is for you? Start with a trial lesson!',
+    text: {
+      p_1: 'This is an introductory lesson where the instructor listens to your voice, assesses your level, shows you basic exercises, and suggests how best to move forward.',
+      p_2: 'A trial lesson suits children, adults, and anyone who has never sung before. You don\'t need a musical education, knowledge of notes, or the ability to sing "correctly." All you need is the desire to try.',
+    },
+    button: 'Book a Trial Vocal Lesson',
+  },
+
+  reviews: {
+    label: 'Reviews',
+    title: 'AivaVoice Student Reviews',
+    text: {
+      p_1: 'The best testament to a vocal school is the results of its students. Children preparing for their first performances come to us, along with adults who have always dreamed of singing, and students from Dnipro, other Ukrainian cities, and abroad.',
+      p_2: 'Parents note that their children become more confident, feel the music better, and look forward to every lesson. Adult students often arrive thinking "I can\'t sing" — and discover otherwise.',
+    },
+    cta: { label: 'Go to the reviews page', link: '/reviews' },
   },
 
   formats: {
@@ -125,6 +156,73 @@ export const en: Translations = {
         text: 'My little one had a severe stutter and was afraid to talk to other kids. Now we look forward to every lesson like a celebration. We finally found OUR teacher!',
         name: 'Iryna',
         role: "Maksym's mom (age 5)",
+      },
+    ],
+  },
+
+  propose: {
+    label: 'Vocal Lessons for Everyone',
+    title: 'What AivaVoice Vocal School Offers',
+    list: [
+      {
+        title: 'Vocals for Children',
+        text: [
+          'Vocal lessons for children at AivaVoice are not dull studying but a lively introduction to music through play, songs, rhythm, and movement. We work with children from age 3 and tailor our method to each child\'s age, character, and temperament.',
+          'For little ones, lessons take a light, playful form: the child sings, repeats rhythm exercises, and develops ear, diction, attention, and confidence. For older children we add vocal technique, microphone work, favorite songs, and preparation for performances, competitions, or school concerts.',
+        ],
+        list_title: 'Singing lessons for children help them:',
+        items: [
+          'Develop a musical ear and voice',
+          'Feel rhythm better',
+          'Improve diction and speech',
+          'Become more confident',
+          'Lose the fear of the stage and public performance',
+        ],
+        subtext: 'Lessons are available in-studio in Dnipro and online from any city in Ukraine.',
+      },
+      {
+        title: 'Vocal Lessons for Adults — You Can Learn to Sing from Scratch',
+        text: [
+          'Think it\'s too late to start singing? It\'s not. At AivaVoice, adult students train without a musical education, without experience, and even with the feeling that they "have no voice." The instructor\'s job is not to make you sing perfectly on the first try, but to help you gradually uncover your natural voice.',
+          'In vocal lessons for adults we work on breathing, intonation, support, diction, rhythm, and repertoire. You will be able to sing for yourself, for loved ones, for the stage, for karaoke, for performances, or simply for pleasure.',
+        ],
+        list_title: 'Vocals for adults are right for you if you want to:',
+        items: [
+          'Learn to sing from scratch',
+          'Stop being shy about your voice',
+          'Hit notes more cleanly',
+          'Develop your ear and rhythm',
+          'Prepare a song for a performance',
+          'Practice for yourself and for emotional release',
+        ],
+        subtext: 'You can feel the first changes in your voice after just a few lessons.',
+      },
+      {
+        title: 'Online Vocals — a Convenient Format for Learning with an Instructor',
+        text: [
+          'Online vocals are a convenient format for those who want to learn with an instructor but can\'t come to the studio. Lessons take place on Zoom or Google Meet, and all you need is a phone, tablet, or laptop, an internet connection, and headphones.',
+          'The instructor hears your voice, gives exercises, corrects breathing, intonation, and rhythm, and helps you work on songs just like in an in-studio lesson. Online lessons suit children, teens, adults, students from other Ukrainian cities, and Ukrainians abroad.',
+        ],
+        list_title: 'Online vocals are right for you if you:',
+        items: [
+          'Want to study from home',
+          'Have a busy schedule',
+          'Are looking for an online vocal instructor',
+          'Want to learn to sing from scratch remotely',
+        ],
+        subtext: 'We will find a convenient time and a teacher to match your level, goals, and musical taste.',
+      },
+      {
+        title: 'AivaVoice — a Vocal School in Dnipro for Children and Adults',
+        text: [
+          'AivaVoice is a vocal school in Dnipro for children and adults. We hold private lessons in a studio with professional equipment: microphones, speakers, and instruments.',
+          'In-studio lessons suit those who want full immersion in vocals, live contact with a teacher, microphone work, and stage delivery. In class, students don\'t just repeat exercises — they learn to hear themselves, control their voice, and sound confident.',
+        ],
+        address_title: 'School address:',
+        address: [
+          'Dnipro, Dmytra Yavornytskoho Ave, 49',
+        ],
+        subtext: 'We work with children from age 3, teens, and adults. You can come for a trial lesson, meet the instructor, and choose a convenient schedule.',
       },
     ],
   },
@@ -298,13 +396,53 @@ export const en: Translations = {
     tiktok: '@aivavoice5',
     copyright: '© 2024-2026 AivaVoice. All rights reserved.',
     privacy: 'Privacy Policy',
+    form: {
+      title: 'Fill out this short form and we will get in touch with you shortly',
+      name: 'Name',
+      namePlaceholder: 'What is your name?',
+      phone: 'Phone',
+      phonePlaceholder: '+380 __ ___ __ __',
+      message: 'Message',
+      messagePlaceholder: 'Tell us about yourself: student age, experience, preferences',
+      submit: 'Send',
+      sending: 'Sending...',
+      success: { title: 'Thank you!', text: 'We have received your request. We will call you back shortly.' },
+      error: 'Something went wrong. Please try again or give us a call.',
+      phoneValidation: 'Please enter a complete phone number',
+    },
   },
 
   aboutPage: {
     hero: {
-      label: 'About Us',
-      title: 'A Voice That Changes Lives',
-      subtitle: 'Learn who stands behind AivaVoice, how we teach, and why students stay with us for years',
+      label: 'About AivaVoice Vocal School',
+      title: 'AivaVoice is a vocal school for children and adults that teaches you not just to sing, but to discover yourself through your voice',
+      subtitle: [
+        { text_1: 'We believe vocals are not only about technique. They are confidence, emotion, freedom, and the ability to hear yourself and not be afraid to sound. That is why our lessons value not just proper voice training, but an atmosphere where the student feels calm and safe.' },
+        { text_2: 'Children just getting to know music come to us, along with teens who want to sing modern songs, adults who dreamed of singing for years, and those who want to learn to sing from scratch.' },
+      ],
+    },
+    tlesson: {
+      label: 'Trial Vocal Lesson',
+      title: 'How Lessons Work',
+      subtitle: 'In vocal lessons, students work on the core, essential skills:',
+      list: [
+        'Breathing and support',
+        'Pitch accuracy',
+        'Musical ear',
+        'Rhythm',
+        'Diction',
+        'Relaxing the vocal apparatus',
+        'Vocal technique',
+        'Emotional delivery of a song',
+        'Confidence in front of an audience',
+      ],
+      phone: { title: 'Have questions? Call or message us:', label: 'Phone', value: '+380 68 549 00 47', sub: 'Telegram, Viber' },
+    },
+    tbanner: {
+      label: 'Trial Lesson',
+      title: 'Get to Know the School at a Trial Lesson',
+      subtitle: 'The first lesson helps you understand your level, the learning format, and your goals. The instructor will suggest where to start and help you take the first step toward confident singing.',
+      button: 'Book a Trial Vocal Lesson',
     },
     founder: {
       label: 'Founder',
@@ -576,14 +714,106 @@ export const en: Translations = {
       button: 'Sign Up',
     },
   },
+
+  privacyPage: {
+    hero: {
+      label: 'Privacy Policy',
+      title: 'Privacy Policy and Personal Data Protection',
+    },
+    intro: 'This Privacy Policy sets out the procedure for collecting, storing, processing, using, and disclosing the personal data of users who visit the aivavoiceschool.com website (hereinafter — the Site).',
+    groups: [
+      {
+        title: '1. Definitions',
+        list: [
+          'Personal data controller — a person or organization that determines the purpose of data processing (for example, the site owner).',
+          'User — an individual who visits the Site.',
+          'Personal data — any information that allows a person to be identified (full name, phone number, email, IP address).',
+        ],
+      },
+      {
+        title: '2. What Data We Collect',
+        list: [
+          'Full name.',
+          'Contact phone number and email address.',
+          'Technical data: IP address, browser type, visit duration, cookie file data.',
+        ],
+      },
+      {
+        title: '3. Purpose of Data Collection',
+        list: [
+          'Providing services and processing requests.',
+          'Communicating with the User.',
+          'Improving the Site and analyzing traffic.',
+          'Sending informational or promotional materials (with your consent).',
+        ],
+      },
+      {
+        title: '4. Data Protection and Storage',
+        list: [
+          'We take the necessary technical and organizational measures to protect your data from unauthorized access, alteration, or deletion.',
+          'Data is stored for the period necessary to achieve the purpose of processing, but no longer than provided for by law.',
+        ],
+      },
+      {
+        title: '5. Transfer of Data to Third Parties',
+        list: [
+          'We do not transfer your personal data to third parties without your consent.',
+          'Transfer is possible in cases provided for by the legislation of Ukraine.',
+          'Third-party services (for example, delivery services) that require the data to fulfill a request may be involved.',
+        ],
+      },
+      {
+        title: '6. User Rights',
+        list: [
+          'To know what data we store.',
+          'To request the correction or deletion of their data.',
+          'To withdraw consent to the processing of personal data.',
+        ],
+      },
+      {
+        title: '7. Changes to the Policy',
+        text: 'We reserve the right to update this Policy. Changes take effect from the moment they are published on this page.',
+      },
+    ],
+  },
+
   teachersPage: {
     hero: {
       label: 'Our Team',
-      title: 'They\u2019ve heard it all. Even what you were too shy to sing in the shower.',
+      title: 'They’ve heard it all. Even what you were too shy to sing in the shower.',
       subtitle: '',
     },
     intro: {
-      text: 'Every AivaVoice instructor brings years of experience, a personalized approach, and a genuine love for music. We match the right teacher to your goals, age, and personality.',
+      p_1: 'AivaVoice vocal instructors help students discover their voice, learn to sing confidently, and enjoy every lesson.',
+      p_2: 'We don\'t match a teacher at random — we take into account each student\'s age, level, character, musical preferences, and goals. Some need a gentle, supportive approach, some need precise technical work, some are preparing for a performance, and some simply want comfortable lessons for themselves.',
+    },
+    voices: {
+      label: 'A Vocal Teacher Is Not Only About Technique',
+      title: 'Our Teachers Hear Not Just the Voice, but the Person',
+      button: 'Find a Vocal Teacher',
+      list: [
+        {
+          title: 'Vocal Teacher for Children',
+          text: {
+            p_1: 'Vocal lessons for children call for a special approach. It matters that lessons are engaging, clear, and pressure-free. That is why our teachers work with children through play, familiar songs, rhythm exercises, and the gradual unfolding of the voice.',
+            p_2: 'The teacher helps the child not only to sing, but also to develop attention, diction, a musical ear, expressiveness, and confidence.',
+          },
+        },
+        {
+          title: 'Vocal Teacher for Adults',
+          text: {
+            p_1: 'Adults often come to their first lesson nervous: "I have never sung," "I have no voice," "I am embarrassed." The teacher\'s job is to create an atmosphere where you can calmly try, make mistakes, and gradually open up.',
+            p_2: 'In vocal lessons for adults, the teacher works on the voice, breathing, intonation, diction, emotion, and repertoire. The training suits even those starting from scratch.',
+          },
+        },
+        {
+          title: 'Online Vocal Teacher',
+          text: {
+            p_1: 'If you can\'t attend lessons in the studio, you can choose the online format. The teacher conducts lessons remotely, gives exercises, listens to your performance, corrects mistakes, and helps you work on songs.',
+            p_2: 'Online vocals suit children, adults, students from other Ukrainian cities, and those living abroad.',
+          },
+        },
+      ],
     },
     teachers: [
       {
@@ -618,7 +848,7 @@ export const en: Translations = {
         name: 'Daria Kolobova',
         role: 'Vocal Instructor',
         bio: '<p>Daria is a vocal coach who understood the most important thing long ago: <strong>a voice only opens up where there is comfort and trust</strong>.</p><p>Jazz, pop, classical, folk — she works freely across styles and easily connects with everyone. From the youngest students to adults — each one feels at her lessons that it\'s okay to be yourself.</p><p class="text-forest-dark font-semibold text-lg font-heading italic">Not just teaching to sing. But giving the feeling of freedom.</p><p>Because for Daria, what matters is that you leave the lesson with confidence and the thought: <strong>"I can actually do this!"</strong></p>',
-        tags: ['Pop', 'Jazz', 'Folk', 'Classical Singing', 'Variety'],
+        tags: ['Pop', 'Jazz', 'Folk', 'Classical Singing', 'Variety', 'Folk Traditional'],
         experience: '5+',
         experienceLabel: 'years of experience',
         students: '500+',
@@ -645,7 +875,7 @@ export const en: Translations = {
       {
         name: 'Yuliia Kishinska',
         role: 'Vocal Instructor',
-        bio: '<p class="text-forest-dark font-semibold text-lg font-heading italic">Experienced. Artistic. Versatile.</p><p>Yuliia is that rare case where a teacher and performer live in one person, constantly inspiring each other. <strong>An international competition laureate</strong> who knows the stage from the inside — what pre-performance nerves really mean, how to turn them into energy, and what makes a voice truly alive.</p><p>There is no boring theory in her lessons. There is practice, there is character, and there is that moment when a student suddenly realizes — <strong>"This is it, this is my voice!"</strong></p><p>Rich teaching experience and performing career have made Yuliia a teacher who hears not just the sound — <strong>but the person behind it</strong>.</p>',
+        bio: '<p class="text-forest-dark font-semibold text-lg font-heading italic">Experienced. Artistic. Versatile.</p><p>Yuliia is that rare case where a teacher and performer live in one person, constantly inspiring each other. <strong>An international competition laureate</strong> who knows the stage from the inside — what pre-performance nerves really mean, how to turn them into energy, and what makes a voice truly alive.</p><p>There is no boring theory in her lessons. There is practice, there is character, and there is that moment when a student suddenly realizes — <strong>"This is it, this is my voice!"</strong></p><p>Rich teaching experience and a performing career have made Yuliia a teacher who hears not just the sound — <strong>but the person behind it</strong>.</p>',
         tags: ['Pop', 'Jazz', 'Folk', 'Classical Singing', 'Variety'],
         experience: '5+',
         experienceLabel: 'years of experience',
