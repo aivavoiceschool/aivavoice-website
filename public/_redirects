@@ -1,3 +1,4 @@
-http://aivavoiceschool.com/* https://aivavoiceschool.com/:splat 301
-http://www.aivavoiceschool.com/* https://aivavoiceschool.com/:splat 301
-https://www.aivavoiceschool.com/* https://aivavoiceschool.com/:splat 301
+# Host/scheme redirects (www->apex, http->https) are NOT configured here.
+# The Cloudflare Workers _redirects parser only accepts relative-path
+# redirects, so cross-host/scheme rules are set up as Cloudflare zone
+# Redirect Rules + the "Always Use HTTPS" setting instead.

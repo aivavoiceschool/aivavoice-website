@@ -1,6 +1,10 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "aivavoice-site",
+  "name": "aivavoice-website",
+  "account_id": "7133a34bf27e3e910fca470590968b15",
   "compatibility_date": "2026-04-12",
-  "compatibility_flags": ["nodejs_compat"]
+  "compatibility_flags": ["nodejs_compat"],
+  "kv_namespaces": [
+    { "binding": "SESSION", "id": "c1c2c4548cf945f5b0e64b4d967ffe4b" }
+  ]
 }
