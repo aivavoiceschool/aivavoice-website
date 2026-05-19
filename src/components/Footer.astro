@@ -14,6 +14,10 @@ const isContactPage = Astro.url.pathname.includes('/contact');
           <span class="text-white">Aiva</span><span class="text-gold">Voice</span>
         </a>
         <p class="text-white/40 text-sm leading-relaxed max-w-[280px]">{i.footer.description}</p>
+        <span class="block mt-4 text-white leading-relaxed max-w-[280px]">
+          <span class="block mb-2 font-bold text-lg">Адреса школи:</span>
+          <p class="text-sm">{i.footer.address}</p>
+        </span>
       </div>
       <div>
         <h4 class="text-white text-sm font-semibold mb-5 tracking-wide">{i.footer.navTitle}</h4>
@@ -86,7 +90,7 @@ const isContactPage = Astro.url.pathname.includes('/contact');
         </svg>
 
       </button>
-      <h3 class="font-heading text-center text-3xl md:text-[46px] font-bold text-forest mb-6">
+      <h3 id="modalFormTitle" class="font-heading text-center text-3xl md:text-[46px] font-bold text-forest mb-6">
         {i.footer.form.title}
       </h3>
       <form id="contactForm" class="space-y-5">
@@ -207,6 +211,7 @@ const isContactPage = Astro.url.pathname.includes('/contact');
       var submitBtn = document.getElementById('submitBtn');
       var formError = document.getElementById('formError');
       var formSuccess = document.getElementById('formSuccess');
+      var modalFormTitle = document.getElementById('modalFormTitle');
 
       if (form) {
         form.addEventListener('submit', async function (e) {
@@ -262,6 +267,9 @@ const isContactPage = Astro.url.pathname.includes('/contact');
 
             if (formSuccess) {
               form.classList.add('hidden');
+              if (modalFormTitle) {
+                modalFormTitle.classList.add('hidden');
+              }
               formSuccess.classList.remove('hidden');
             }
 
@@ -287,7 +295,6 @@ const isContactPage = Astro.url.pathname.includes('/contact');
 
   </>
 )}
-
 
 
 

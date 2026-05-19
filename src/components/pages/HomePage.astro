@@ -97,7 +97,7 @@ const i = t(lang);
             </svg>
           </span>
         </button>
-        <a href="{i.hero.pricing.link}" class="hero-cta-btn btn-gold !px-8 !py-4 !text-sm md:!px-10 md:!py-5 md:!text-base group relative overflow-hidden" style="--fade-order: 3">
+        <a href={localizedPath(i.hero.pricing.link, lang)} class="hero-cta-btn btn-gold !px-8 !py-4 !text-sm md:!px-10 md:!py-5 md:!text-base group relative overflow-hidden" style="--fade-order: 3">
           <span class="hero-cta-shimmer absolute inset-0 pointer-events-none" />
           <span class="relative flex items-center gap-2">
             {i.hero.pricing.label}
@@ -115,6 +115,19 @@ const i = t(lang);
         <path d="M10 4v12M5 11l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
     </div>
+  </section>
+  <!-- ====== TestBanner ====== -->
+  <section class="pt-20 md:pt-28 bg-white">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 justify-between max-w-6xl mx-auto">
+      {i.testBanner.cols.map((col) => (
+        <div class="flex flex-col items-center justify-center gap-1 text-center">
+          <div class="text-lg font-bold text-green text-center">{col.label}</div>
+          <div class="text-gold font-bold text-2xl text-center">{col.value}</div>
+        </div>
+      ))}
+      
+    </div>
+    <p class="mt-7 text-black text-lg text-center max-w-6xl mx-auto">{i.testBanner.description}</p>
   </section>
 
   <!-- ====== ADVANTAGES ====== -->
@@ -162,11 +175,13 @@ const i = t(lang);
         <span class="text-gold section-subtitle mx-auto font-semibold tracking-wider">
         {i.advantages.phone.title}
         </span> 
-        <a href="tel:{i.advantages.phone.value}" class="text-gold mx-auto text-4xl sm:text-5xl md:text-6xl lg:text-[4.5rem] font-semibold"> 
+        <a href={`tel:${i.advantages.phone.value.replace(/\s+/g, '')}`} class="text-gold mx-auto text-4xl sm:text-5xl md:text-6xl lg:text-[4.5rem] font-semibold"> 
           {i.advantages.phone.value}
         </a> 
         <span class="text-gold font-medium text-center text-sm"> 
-          {i.advantages.phone.sub}
+          <span>{i.advantages.social.title}</span>
+          <a href={i.advantages.social.telegram.url} target="_blank" rel="noopener">{i.advantages.social.telegram.label}</a>,
+          <a href={i.advantages.social.instagram.url} target="_blank" rel="noopener">{i.advantages.social.instagram.label}</a>
         </span>
       </div>
     </div>
@@ -254,9 +269,8 @@ const i = t(lang);
                 {item.subtext}
               </p>
             )}
-            <button type="button" onclick="openVocalModal();" class="btn-gold flex flex-col mx-auto mt-10 !px-10 leading-none !py-3 !text-sm group"> 
-              <span>Записати дитину</span>
-              <span>на пробний урок</span>
+            <button type="button" onclick="openVocalModal();" class="btn-gold flex flex-col mx-auto mt-10 !px-10 leading-tight !py-3 !text-sm group"> 
+              {item.btn_text}
             </button>
           </div>
         </div>

@@ -66,6 +66,12 @@ export const en: Translations = {
     label: 'Who Our Lessons Are For',
     title: 'Vocal Lessons for Children, Adults, and Beginners',
     phone: { title: 'Have questions? Call or message us:', label: 'Phone', value: '+380 68 549 00 47', sub: 'Calls, Viber, Telegram' },
+    social: {
+      title: 'Message us',
+      telegram: { label: 'Telegram', handle: '@aivavoiceschool', url: 'https://t.me/aivavoiceschool' },
+      viber: { label: 'Viber', handle: '+380 68 549 00 47', url: 'viber://chat?number=%2B380685490047' },
+      instagram: { label: 'Instagram', handle: '@aivavoice', url: 'https://instagram.com/aivavoice' },
+    },
     items: [
       {
         title: 'Vocals for Children',
@@ -98,6 +104,12 @@ export const en: Translations = {
       p_1: 'This is an introductory lesson where the instructor listens to your voice, assesses your level, shows you basic exercises, and suggests how best to move forward.',
       p_2: 'A trial lesson suits children, adults, and anyone who has never sung before. You don\'t need a musical education, knowledge of notes, or the ability to sing "correctly." All you need is the desire to try.',
     },
+    items: [
+      { title: 'Voice Introduction', text: 'The instructor listens to your voice and helps define the best starting point.' },
+      { title: 'Basic Exercises', text: 'You try simple exercises for breathing, ear training, and sound.' },
+      { title: 'Format Selection', text: 'We suggest online or in-studio lessons, duration, and a comfortable rhythm.' },
+      { title: 'Next-Step Plan', text: 'You leave with clear guidance for moving toward confident singing.' },
+    ],
     button: 'Book a Trial Vocal Lesson',
   },
 
@@ -437,6 +449,11 @@ export const en: Translations = {
         'Confidence in front of an audience',
       ],
       phone: { title: 'Have questions? Call or message us:', label: 'Phone', value: '+380 68 549 00 47', sub: 'Telegram, Viber' },
+      social: {
+        telegram: { label: 'Telegram', handle: '@aivavoiceschool', url: 'https://t.me/aivavoiceschool' },
+        viber: { label: 'Viber', handle: '+380 68 549 00 47', url: 'viber://chat?number=%2B380685490047' },
+        instagram: { label: 'Instagram', handle: '@aivavoice', url: 'https://instagram.com/aivavoice' },
+      },
     },
     tbanner: {
       label: 'Trial Lesson',
