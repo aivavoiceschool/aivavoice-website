@@ -1,0 +1,6 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "aivavoice-site",
+  "compatibility_date": "2026-04-12",
+  "compatibility_flags": ["nodejs_compat"]
+}
