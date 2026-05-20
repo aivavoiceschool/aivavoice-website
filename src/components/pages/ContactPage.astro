@@ -20,7 +20,7 @@ const f = c.form;
   </section>
 
   <!-- Contact Grid -->
-  <section class="py-16 md:py-24 bg-gray-50">
+  <section id="form" class="py-16 md:py-24 bg-gray-50">
     <div class="max-w-7xl mx-auto px-5">
       <div class="grid lg:grid-cols-2 gap-12">
 
@@ -154,6 +154,10 @@ const f = c.form;
           <form id="contactForm" class="space-y-5">
             <!-- Hidden lang field -->
             <input type="hidden" name="lang" value={lang} />
+            <input type="hidden" name="source_href" value="#form" />
+            <input type="hidden" name="source_url" value="" />
+            <input type="hidden" name="source_query" value="" />
+            <input type="hidden" name="source_full_url" value="" />
 
             <!-- Name -->
             <div>
@@ -315,6 +319,18 @@ const f = c.form;
       // Get lang
       const langInput = form.querySelector('[name="lang"]') as HTMLInputElement;
       const formLang = langInput?.value || 'uk';
+      const sourceHrefInput = form.querySelector('[name="source_href"]') as HTMLInputElement;
+      const sourceUrlInput = form.querySelector('[name="source_url"]') as HTMLInputElement;
+      const sourceQueryInput = form.querySelector('[name="source_query"]') as HTMLInputElement;
+      const sourceFullUrlInput = form.querySelector('[name="source_full_url"]') as HTMLInputElement;
+
+      const cleanPath = window.location.origin + window.location.pathname;
+      const query = window.location.search;
+      const anchor = sourceHrefInput?.value || '#form';
+
+      if (sourceUrlInput) sourceUrlInput.value = cleanPath;
+      if (sourceQueryInput) sourceQueryInput.value = window.location.search;
+      if (sourceFullUrlInput) sourceFullUrlInput.value = cleanPath + query + anchor;
 
       // Disable button
       const originalText = submitBtn.textContent;
@@ -332,6 +348,10 @@ const f = c.form;
             message: (document.getElementById('message') as HTMLTextAreaElement).value.trim(),
             turnstileToken,
             lang: formLang,
+            sourceHref: anchor,
+            sourceUrl: sourceUrlInput?.value || cleanPath,
+            sourceQuery: sourceQueryInput?.value || query,
+            sourceFullUrl: sourceFullUrlInput?.value || cleanPath + query + anchor,
           }),
         });
 
@@ -349,6 +369,7 @@ const f = c.form;
           (window as any).gtag('event', 'form_submit', {
             form_name: 'contact_lesson_request',
             lang: formLang,
+            source_href: sourceHrefInput?.value || '#form',
           });
         }
       } catch (err) {

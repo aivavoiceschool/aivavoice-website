@@ -5,6 +5,7 @@ import { t, getLangFromUrl, localizedPath } from '../../i18n';
 
 const lang = getLangFromUrl(Astro.url);
 const i = t(lang);
+const proposeAnchors = ['#kids', '#adults', '#online', '#dnipro'];
 ---
 
 <BaseLayout title={i.meta.home.title} description={i.meta.home.description}>
@@ -88,7 +89,7 @@ const i = t(lang);
 
       <!-- CTA Buttons -->
       <div class="flex gap-5 align-center justify-center flex-col md:flex-row py-5 mt-10" style="">
-        <button type="button" onclick="openVocalModal();" class="hero-cta-btn btn-gold !px-8 !py-4 !text-sm md:!px-10 md:!py-5 md:!text-base group relative overflow-hidden" style="--fade-order: 3">
+        <button type="button" onclick="openVocalModal(this);" data-href="#trial" class="hero-cta-btn btn-gold !px-8 !py-4 !text-sm md:!px-10 md:!py-5 md:!text-base group relative overflow-hidden" style="--fade-order: 3">
           <span class="hero-cta-shimmer absolute inset-0 pointer-events-none" />
           <span class="relative flex items-center gap-2">
             {i.hero.cta}
@@ -97,7 +98,7 @@ const i = t(lang);
             </svg>
           </span>
         </button>
-        <a href="{i.hero.pricing.link}" class="hero-cta-btn btn-gold !px-8 !py-4 !text-sm md:!px-10 md:!py-5 md:!text-base group relative overflow-hidden" style="--fade-order: 3">
+        <a href={localizedPath(i.hero.pricing.link, lang)} class="hero-cta-btn btn-gold !px-8 !py-4 !text-sm md:!px-10 md:!py-5 md:!text-base group relative overflow-hidden" style="--fade-order: 3">
           <span class="hero-cta-shimmer absolute inset-0 pointer-events-none" />
           <span class="relative flex items-center gap-2">
             {i.hero.pricing.label}
@@ -115,6 +116,19 @@ const i = t(lang);
         <path d="M10 4v12M5 11l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
     </div>
+  </section>
+  <!-- ====== TestBanner ====== -->
+  <section class="pt-20 md:pt-28 bg-white">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 justify-between max-w-6xl mx-auto">
+      {i.testBanner.cols.map((col) => (
+        <div class="flex flex-col items-center justify-center gap-1 text-center">
+          <div class="text-lg font-bold text-green text-center">{col.label}</div>
+          <div class="text-gold font-bold text-2xl text-center">{col.value}</div>
+        </div>
+      ))}
+      
+    </div>
+    <p class="mt-7 text-black text-lg text-center max-w-6xl mx-auto">{i.testBanner.description}</p>
   </section>
 
   <!-- ====== ADVANTAGES ====== -->
@@ -162,18 +176,20 @@ const i = t(lang);
         <span class="text-gold section-subtitle mx-auto font-semibold tracking-wider">
         {i.advantages.phone.title}
         </span> 
-        <a href="tel:{i.advantages.phone.value}" class="text-gold mx-auto text-4xl sm:text-5xl md:text-6xl lg:text-[4.5rem] font-semibold"> 
+        <a href={`tel:${i.advantages.phone.value.replace(/\s+/g, '')}`} class="text-gold mx-auto text-4xl sm:text-5xl md:text-6xl lg:text-[4.5rem] font-semibold"> 
           {i.advantages.phone.value}
         </a> 
         <span class="text-gold font-medium text-center text-sm"> 
-          {i.advantages.phone.sub}
+          <span>{i.advantages.social.title}</span>
+          <a href={i.advantages.social.telegram.url} target="_blank" rel="noopener">{i.advantages.social.telegram.label}</a>,
+          <a href={i.advantages.social.instagram.url} target="_blank" rel="noopener">{i.advantages.social.instagram.label}</a>
         </span>
       </div>
     </div>
   </section>
 
   <!-- TBANNER -->
-  <section class="py-10 md:py-10 bg-gray-50">
+  <section id="trial" class="py-10 md:py-10 bg-gray-50">
     <div class="max-w-7xl mx-auto px-5">
       <div class="text-center mb-5 reveal">
         <span class="section-label justify-center">{i.tbanner.label}</span>
@@ -184,7 +200,7 @@ const i = t(lang);
         <p class="">{i.tbanner.text.p_1}</p>
         <p class="">{i.tbanner.text.p_2}</p>
       </div>
-      <button onclick="openVocalModal();" type="button" class="btn-gold mx-auto mt-10 flex !px-10 !py-4 !text-base group"> 
+      <button onclick="openVocalModal(this);" data-href="#trial" type="button" class="btn-gold mx-auto mt-10 flex !px-10 !py-4 !text-base group">
         {i.tbanner.button} 
         <svg class="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"> 
           <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"></path> 
@@ -206,8 +222,8 @@ const i = t(lang);
     </div>
 
     <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-5 items-start">
-      {i.propose.list.map((item) => (
-        <div class="bg-white border border-[#D2D5DC] rounded-2xl p-6 hover:border-forest transition-all duration-300">
+      {i.propose.list.map((item, idx) => (
+        <div id={proposeAnchors[idx]?.slice(1)} class="bg-white border border-[#D2D5DC] rounded-2xl p-6 hover:border-forest transition-all duration-300">
 
           <h3 class="section-title text-forest-dark !text-2xl md:!text-3xl">
             {item.title}
@@ -254,9 +270,8 @@ const i = t(lang);
                 {item.subtext}
               </p>
             )}
-            <button type="button" onclick="openVocalModal();" class="btn-gold flex flex-col mx-auto mt-10 !px-10 leading-none !py-3 !text-sm group"> 
-              <span>Записати дитину</span>
-              <span>на пробний урок</span>
+            <button type="button" onclick="openVocalModal(this);" data-href={proposeAnchors[idx]} class="btn-gold flex flex-col mx-auto mt-10 !px-10 leading-tight !py-3 !text-sm group">
+              {item.btn_text}
             </button>
           </div>
         </div>
@@ -325,7 +340,7 @@ const i = t(lang);
   </section>
 
   <!-- ====== Reviews banner ====== -->
-  <section class="mt-10 bg-white">
+  <section id="reviews" class="mt-10 bg-white">
     <div class="max-w-7xl mx-auto px-5">
       <div class="text-center mb-5 reveal">
         <span class="section-label justify-center">{i.reviews.label}</span>

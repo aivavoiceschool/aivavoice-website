@@ -14,6 +14,10 @@ const isContactPage = Astro.url.pathname.includes('/contact');
           <span class="text-white">Aiva</span><span class="text-gold">Voice</span>
         </a>
         <p class="text-white/40 text-sm leading-relaxed max-w-[280px]">{i.footer.description}</p>
+        <span class="block mt-4 text-white leading-relaxed max-w-[280px]">
+          <span class="block mb-2 font-bold text-lg">Адреса школи:</span>
+          <p class="text-sm">{i.footer.address}</p>
+        </span>
       </div>
       <div>
         <h4 class="text-white text-sm font-semibold mb-5 tracking-wide">{i.footer.navTitle}</h4>
@@ -86,12 +90,16 @@ const isContactPage = Astro.url.pathname.includes('/contact');
         </svg>
 
       </button>
-      <h3 class="font-heading text-center text-3xl md:text-[46px] font-bold text-forest mb-6">
+      <h3 id="modalFormTitle" class="font-heading text-center text-3xl md:text-[46px] font-bold text-forest mb-6">
         {i.footer.form.title}
       </h3>
       <form id="contactForm" class="space-y-5">
             <!-- Hidden lang field -->
             <input type="hidden" name="lang" value={lang} />
+            <input type="hidden" name="source_href" id="sourceHref" value="" />
+            <input type="hidden" name="source_url" id="sourceUrl" value="" />
+            <input type="hidden" name="source_query" id="sourceQuery" value="" />
+            <input type="hidden" name="source_full_url" id="sourceFullUrl" value="" />
 
             <!-- Name -->
             <div>
@@ -149,12 +157,41 @@ const isContactPage = Astro.url.pathname.includes('/contact');
     </div>
 
     <script is:inline>
-      window.openVocalModal = function () {
+      window.openVocalModal = function (trigger) {
         var modal = document.getElementById('contact-modal');
+        var form = document.getElementById('contactForm');
+        var sourceHrefInput = document.getElementById('sourceHref');
+        var sourceUrlInput = document.getElementById('sourceUrl');
+        var sourceQueryInput = document.getElementById('sourceQuery');
+        var sourceFullUrlInput = document.getElementById('sourceFullUrl');
+        var sourceHref = trigger && trigger.dataset ? trigger.dataset.href || '' : '';
+        var cleanPath = window.location.origin + window.location.pathname;
+        var query = window.location.search;
+        var fullUrlWithAnchor = cleanPath + query + sourceHref;
 
         if (modal) {
           modal.classList.add('active');
           document.body.classList.add('modal-open');
+        }
+
+        if (form) {
+          form.dataset.sourceHref = sourceHref;
+        }
+
+        if (sourceHrefInput) {
+          sourceHrefInput.value = sourceHref;
+        }
+
+        if (sourceUrlInput) {
+          sourceUrlInput.value = cleanPath;
+        }
+
+        if (sourceQueryInput) {
+          sourceQueryInput.value = query;
+        }
+
+        if (sourceFullUrlInput) {
+          sourceFullUrlInput.value = fullUrlWithAnchor;
         }
       };
 
@@ -207,6 +244,7 @@ const isContactPage = Astro.url.pathname.includes('/contact');
       var submitBtn = document.getElementById('submitBtn');
       var formError = document.getElementById('formError');
       var formSuccess = document.getElementById('formSuccess');
+      var modalFormTitle = document.getElementById('modalFormTitle');
 
       if (form) {
         form.addEventListener('submit', async function (e) {
@@ -220,6 +258,10 @@ const isContactPage = Astro.url.pathname.includes('/contact');
           var phoneInput = document.getElementById('phone');
           var messageInput = document.getElementById('message');
           var langInput = form.querySelector('[name="lang"]');
+          var sourceHrefInput = form.querySelector('[name="source_href"]');
+          var sourceUrlInput = form.querySelector('[name="source_url"]');
+          var sourceQueryInput = form.querySelector('[name="source_query"]');
+          var sourceFullUrlInput = form.querySelector('[name="source_full_url"]');
 
           var digits = phoneInput.value.replace(/\D/g, '');
 
@@ -250,7 +292,11 @@ const isContactPage = Astro.url.pathname.includes('/contact');
                 name: nameInput.value.trim(),
                 phone: phoneInput.value.trim(),
                 message: messageInput.value.trim(),
-                lang: langInput ? langInput.value : 'uk'
+                lang: langInput ? langInput.value : 'uk',
+                sourceHref: sourceHrefInput ? sourceHrefInput.value : '',
+                sourceUrl: sourceUrlInput ? sourceUrlInput.value : window.location.origin + window.location.pathname,
+                sourceQuery: sourceQueryInput ? sourceQueryInput.value : window.location.search,
+                sourceFullUrl: sourceFullUrlInput ? sourceFullUrlInput.value : window.location.href
               })
             });
 
@@ -262,13 +308,17 @@ const isContactPage = Astro.url.pathname.includes('/contact');
 
             if (formSuccess) {
               form.classList.add('hidden');
+              if (modalFormTitle) {
+                modalFormTitle.classList.add('hidden');
+              }
               formSuccess.classList.remove('hidden');
             }
 
             if (typeof window.gtag === 'function') {
               window.gtag('event', 'form_submit', {
                 form_name: 'modal_lesson_request',
-                lang: langInput ? langInput.value : 'uk'
+                lang: langInput ? langInput.value : 'uk',
+                source_href: sourceHrefInput ? sourceHrefInput.value : ''
               });
             }
           } catch (err) {
@@ -287,7 +337,4 @@ const isContactPage = Astro.url.pathname.includes('/contact');
 
   </>
 )}
-
-
-
 
