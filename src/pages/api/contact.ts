@@ -67,6 +67,18 @@ export const POST: APIRoute = async ({ request }) => {
     if (body.lang) {
       lines.push(`🌐 *Мова сайту:* ${body.lang === 'en' ? 'English' : 'Українська'}`);
     }
+    if (body.sourceHref) {
+      lines.push(`⚓ *Якір:* ${escapeMarkdown(body.sourceHref)}`);
+    }
+    if (body.sourceQuery) {
+      lines.push(`🧭 *Параметри URL:* ${escapeMarkdown(body.sourceQuery)}`);
+    }
+    if (body.sourceUrl) {
+      lines.push(`📄 *Сторінка без параметрів:* ${escapeMarkdown(body.sourceUrl)}`);
+    }
+    if (body.sourceFullUrl) {
+      lines.push(`🔗 *Повний URL:* ${escapeMarkdown(body.sourceFullUrl)}`);
+    }
 
     console.log('[CONTACT] Sending to Telegram...');
 
